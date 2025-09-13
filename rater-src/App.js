@@ -3,6 +3,7 @@ import autoStart from "./autostart";
 import styles from "./css.js";
 import { makeErrorMsg } from "./api";
 import windowManager from "./windowManager";
+import i18n from "./i18n";
 // <nowiki>
 
 (function App() {
@@ -35,13 +36,13 @@ import windowManager from "./windowManager";
 				// Show notification when saved successfully
 				if (result && result.success) {
 					const $message = $("<span>").append(
-						$("<strong>").text("Ratings saved successfully.")
+						$("<strong>").text(i18n.t("notify-saved"))
 					);
 					if (result.upgradedStub) {
 						$message.append(
 							$("<br>"),
 							// TODO: There should be a link that will edit the article for you
-							$("<span>").text("Note that the article appears to be tagged as a stub.")
+							$("<span>").text(i18n.t("notify-stub"))
 						);
 					}
 					mw.notify(
@@ -54,7 +55,7 @@ import windowManager from "./windowManager";
 
 	const showSetupError = (code, jqxhr) => OO.ui.alert(
 		makeErrorMsg(code, jqxhr),	{
-			title: "Rater failed to open"
+			title: i18n.t("app-setup-error")
 		}
 	);
 
@@ -62,9 +63,9 @@ import windowManager from "./windowManager";
 	mw.util.addPortletLink(
 		"p-cactions",
 		"#",
-		"Rater",
+		i18n.t("app-portlet-text"),
 		"ca-rater",
-		"Rate quality and importance",
+		i18n.t("app-portlet-tooltip"),
 		"5"
 	);
 	$("#ca-rater").click(event => {
