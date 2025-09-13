@@ -18,8 +18,8 @@ function getLangCode() {
 
 function getBaseUrl() {
 	// Allow override via global for testing or mirrors
-	// Example: window.RaterI18nBaseUrl = "https://raw.githubusercontent.com/In1quity/rater/master/i18n/";
-	return (typeof window !== "undefined" && window.RaterI18nBaseUrl) || "https://raw.githubusercontent.com/In1quity/rater/master/i18n/";
+	// Example: window.RaterI18nBaseUrl = "https://gitlab.wikimedia.org/iniquity/rater/-/raw/master/i18n/";
+	return (typeof window !== "undefined" && window.RaterI18nBaseUrl) || "https://gitlab.wikimedia.org/iniquity/rater/-/raw/master/i18n/";
 }
 
 function loadLanguage(langCode) {
