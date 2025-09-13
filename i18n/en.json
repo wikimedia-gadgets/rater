@@ -39,6 +39,25 @@
 	"label-featured-list": "Featured list",
 	"label-list-article": "List article",
 	"label-article-page": "Article page",
-	"label-prediction": "Prediction: "
+	"label-prediction": "Prediction: ",
+	"prefs-autostart": "Autostart Rater",
+	"prefs-autostart-redirects": "Autostart on redirects",
+	"prefs-autostart-namespaces": "Autostart in these namespaces",
+	"prefs-bypass-redirects": "Bypass redirects to banners",
+	"prefs-autofill-class-others": "Autofill class from other banners",
+	"prefs-autofill-class-ores": "Autofill class based on ORES prediction",
+	"prefs-autofill-importance": "Autofill low importance",
+	"prefs-min-params": "Minimum number of parameters to show uncollapsed",
+	"prefs-watchlist-label": "Add edited pages to watchlist",
+	"prefs-watchlist-default": "Default",
+	"prefs-watchlist-default-title": "Uses the same setting as if you manually edited the page, as per Special:Preferences",
+	"prefs-watchlist-always": "Always",
+	"prefs-watchlist-always-title": "Always add pages Rater edits to your watchlist",
+	"prefs-watchlist-never": "Never",
+	"prefs-watchlist-never-title": "Never add pages Rater edit to your watchlist",
+	"prefs-reset-cache": "Reset cache",
+	"prefs-reset-cache-title": "Remove cached data, including list of WikiProjects and template parameters",
+	"namespace-main": "(Main)",
+	"confirm-reset-cache": "After reseting cache, Rater will close and restart. Any changes made will be discarded."
 }
 

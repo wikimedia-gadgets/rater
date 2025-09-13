@@ -39,6 +39,25 @@
 	"label-featured-list": "Избранный список",
 	"label-list-article": "Список",
 	"label-article-page": "Статья",
-	"label-prediction": "Прогноз: "
+	"label-prediction": "Прогноз: ",
+	"prefs-autostart": "Автозапуск Rater",
+	"prefs-autostart-redirects": "Автозапуск на перенаправлениях",
+	"prefs-autostart-namespaces": "Автозапуск в этих пространствах имен",
+	"prefs-bypass-redirects": "Обход перенаправлений к баннерам",
+	"prefs-autofill-class-others": "Автозаполнение класса по другим баннерам",
+	"prefs-autofill-class-ores": "Автозаполнение класса по прогнозу ORES",
+	"prefs-autofill-importance": "Автозаполнение низкой важности",
+	"prefs-min-params": "Минимум параметров для показа без сворачивания",
+	"prefs-watchlist-label": "Добавлять измененные страницы в список наблюдения",
+	"prefs-watchlist-default": "По умолчанию",
+	"prefs-watchlist-default-title": "Использует ту же настройку, что и при ручном редактировании, как в Special:Preferences",
+	"prefs-watchlist-always": "Всегда",
+	"prefs-watchlist-always-title": "Всегда добавлять страницы, измененные Rater, в список наблюдения",
+	"prefs-watchlist-never": "Никогда",
+	"prefs-watchlist-never-title": "Никогда не добавлять страницы, измененные Rater, в список наблюдения",
+	"prefs-reset-cache": "Сбросить кэш",
+	"prefs-reset-cache-title": "Удалить кэшированные данные, включая список проектов и параметры шаблонов",
+	"namespace-main": "(Основное)",
+	"confirm-reset-cache": "После сброса кэша Rater закроется и перезапустится. Все несохраненные изменения будут потеряны."
 }
 

@@ -8,6 +8,7 @@ import { parseTemplates } from "../Template";
 import TopBarWidget from "./Components/TopBarWidget";
 import { filterAndMap, uniqueArray } from "../util";
 import * as cache from "../cache";
+import i18n from "../i18n";
 // <nowiki>
 
 function MainWindow( config ) {
@@ -28,7 +29,7 @@ MainWindow.static.actions = [
 	// Primary (top right):
 	{
 		label: "X", // not using an icon since color becomes inverted, i.e. white on light-grey
-		title: "Close (and discard any changes)",
+		title: i18n.t("dialog-close-title"),
 		flags: "primary",
 		modes: ["edit", "diff", "preview"] // available when current mode isn't "prefs"
 	},
@@ -37,45 +38,45 @@ MainWindow.static.actions = [
 		action: "showPrefs",
 		flags: "safe",
 		icon: "settings",
-		title: "Preferences",
+		title: i18n.t("dialog-prefs"),
 		modes: ["edit", "diff", "preview"] // available when current mode isn't "prefs"
 	},
 	// Others (bottom)
 	{
 		action: "save",
 		accessKey: "s",
-		label: new OO.ui.HtmlSnippet("<span style='padding:0 1em;'>Save</span>"),
+		label: new OO.ui.HtmlSnippet("<span style='padding:0 1em;'>" + i18n.t("action-save") + "</span>"),
 		flags: ["primary", "progressive"],
 		modes: ["edit", "diff", "preview"] // available when current mode isn't "prefs"
 	},
 	{
 		action: "preview",
 		accessKey: "p",
-		label: "Show preview",
+		label: i18n.t("action-preview"),
 		modes: ["edit", "diff"] // available when current mode isn't "preview" or "prefs"
 	},
 	{
 		action: "changes",
 		accessKey: "v",
-		label: "Show changes",
+		label: i18n.t("action-changes"),
 		modes: ["edit", "preview"] // available when current mode isn't "diff" or "prefs"
 	},
 	{
 		action: "back",
-		label: "Back",
+		label: i18n.t("action-back"),
 		modes: ["diff", "preview"] // available when current mode is "diff" or "prefs"
 	},
 	
 	// "prefs" mode only
 	{
 		action: "savePrefs",
-		label: "Update",
+		label: i18n.t("action-update"),
 		flags: ["primary", "progressive"],
 		modes: "prefs" 
 	},
 	{
 		action: "closePrefs",
-		label: "Cancel",
+		label: i18n.t("action-cancel"),
 		flags: "safe",
 		modes: "prefs"
 	}
@@ -144,7 +145,7 @@ MainWindow.prototype.initialize = function () {
 
 	// Preview, Show changes
 	this.parsedContentContainer = new OO.ui.FieldsetLayout( {
-		label: "Preview"
+		label: i18n.t("label-preview")
 	} );
 	this.parsedContentWidget = new OO.ui.LabelWidget( {label: "",	$element:$("<div>")	});
 	this.parsedContentContainer.addItems([
@@ -330,26 +331,26 @@ MainWindow.prototype.getSetupProcess = function ( data ) {
 				.syncShellTemplateWithBiographyBanner();
 			// Show page type, or ORES prediction, if available
 			if (this.pageInfo.redirect) {
-				this.pagetypeLabel.setLabel("Redirect page").toggle(true);
+				this.pagetypeLabel.setLabel(i18n.t("label-redirect-page")).toggle(true);
 			} else if (this.pageInfo.isDisambig) {
-				this.pagetypeLabel.setLabel("Disambiguation page").toggle(true);
+				this.pagetypeLabel.setLabel(i18n.t("label-disambig-page")).toggle(true);
 			} else if (this.pageInfo.isArticle && data.isGA) {
-				this.pagetypeLabel.setLabel("Good article").toggle(true);
+				this.pagetypeLabel.setLabel(i18n.t("label-good-article")).toggle(true);
 			} else if (this.pageInfo.isArticle && data.isFA) {
-				this.pagetypeLabel.setLabel("Featured article").toggle(true);
+				this.pagetypeLabel.setLabel(i18n.t("label-featured-article")).toggle(true);
 			} else if (this.pageInfo.isArticle && data.isFL) {
-				this.pagetypeLabel.setLabel("Featured list").toggle(true);
+				this.pagetypeLabel.setLabel(i18n.t("label-featured-list")).toggle(true);
 			} else if (this.pageInfo.isArticle && data.isList) {
-				this.pagetypeLabel.setLabel("List article").toggle(true);
+				this.pagetypeLabel.setLabel(i18n.t("label-list-article")).toggle(true);
 			} else if (data.ores) {
 				this.oresClass = data.ores.prediction;
 				this.oresLabel.toggle(true).$element.find(".oresPrediction").append(
-					"Prediction: ",
+					i18n.t("label-prediction"),
 					$("<strong>").text(data.ores.prediction),
-					"&nbsp;(" + data.ores.probability + ")"
+					"\u00A0(" + data.ores.probability + ")"
 				);
 			} else if (this.pageInfo.isArticle) {
-				this.pagetypeLabel.setLabel("Article page").toggle(true);
+				this.pagetypeLabel.setLabel(i18n.t("label-article-page")).toggle(true);
 			} else {
 				this.pagetypeLabel.setLabel( this.subjectPage.getNamespacePrefix().slice(0,-1) + " page" ).toggle(true);
 			}
@@ -444,7 +445,7 @@ MainWindow.prototype.getActionProcess = function ( action ) {
 			API.post({
 				action: "parse",
 				contentmodel: "wikitext",
-				text: this.transformTalkWikitext(this.talkWikitext) + "\n<hr>\n" + "'''Edit summary:''' " + this.makeEditSummary(),
+				text: this.transformTalkWikitext(this.talkWikitext) + "\n<hr>\n" + "'''" + i18n.t("label-edit-summary") + "''' " + this.makeEditSummary(),
 				title: this.talkpage.getPrefixedText(),
 				pst: 1
 			}).then( result => {
@@ -454,7 +455,7 @@ MainWindow.prototype.getActionProcess = function ( action ) {
 				var previewHtmlSnippet = new OO.ui.HtmlSnippet(result.parse.text["*"]);
 
 				this.parsedContentWidget.setLabel(previewHtmlSnippet);
-				this.parsedContentContainer.setLabel("Preview:");
+				this.parsedContentContainer.setLabel(i18n.t("label-preview") + ":");
 				this.actions.setMode("preview");
 				this.contentArea.setItem( this.parsedContentLayout );
 				this.topBar.setDisabled(true);
@@ -463,7 +464,7 @@ MainWindow.prototype.getActionProcess = function ( action ) {
 				.catch( (code, err) => $.Deferred().reject(
 					new OO.ui.Error(
 						$("<div>").append(
-							$("<strong style='display:block;'>").text("Could not show changes."),
+							$("<strong style='display:block;'>").text(i18n.t("error-could-not-show-changes")),
 							$("<span style='color:#777'>").text( makeErrorMsg(code, err) )
 						)
 					)
@@ -487,14 +488,14 @@ MainWindow.prototype.getActionProcess = function ( action ) {
 					}
 					var $diff = $("<table>").addClass("diff").css("width", "100%").append(
 						$("<tr>").append(
-							$("<th>").attr({"colspan":"2", "scope":"col"}).css("width", "50%").text("Latest revision"),
-							$("<th>").attr({"colspan":"2", "scope":"col"}).css("width", "50%").text("New text")
+							$("<th>").attr({"colspan":"2", "scope":"col"}).css("width", "50%").text(i18n.t("label-latest-revision")),
+							$("<th>").attr({"colspan":"2", "scope":"col"}).css("width", "50%" ).text(i18n.t("label-new-text"))
 						),
 						result.compare["*"],
 						$("<tfoot>").append(
 							$("<tr>").append(
 								$("<td colspan='4'>").append(
-									$("<strong>").text("Edit summary: "),
+									$("<strong>").text(i18n.t("label-edit-summary") + " "),
 									this.makeEditSummary()
 								)
 							)
@@ -502,7 +503,7 @@ MainWindow.prototype.getActionProcess = function ( action ) {
 					);
 
 					this.parsedContentWidget.setLabel($diff);
-					this.parsedContentContainer.setLabel("Changes:");
+					this.parsedContentContainer.setLabel(i18n.t("label-changes"));
 					this.actions.setMode("diff");
 					this.contentArea.setItem( this.parsedContentLayout );
 					this.topBar.setDisabled(true);
@@ -511,7 +512,7 @@ MainWindow.prototype.getActionProcess = function ( action ) {
 				.catch( (code, err) => $.Deferred().reject(
 					new OO.ui.Error(
 						$("<div>").append(
-							$("<strong style='display:block;'>").text("Could not show changes."),
+							$("<strong style='display:block;'>").text(i18n.t("error-could-not-show-changes")),
 							$("<span style='color:#777'>").text( makeErrorMsg(code, err) )
 						)
 					)
@@ -527,7 +528,7 @@ MainWindow.prototype.getActionProcess = function ( action ) {
 	} else if (!action && this.bannerList.changed) {
 		// Confirm closing of dialog if there have been changes 
 		return new OO.ui.Process().next(
-			OO.ui.confirm("Changes made will be discarded.", {title:"Close Rater?"})
+			OO.ui.confirm(i18n.t("confirm-close"), {title: "Close Rater?"})
 				.then(confirmed => confirmed ? this.close() : null)
 		);
 	}

@@ -1,4 +1,5 @@
 import config from "../../config";
+import i18n from "../../i18n";
 // <nowiki>
 
 function PrefsFormWidget( config ) {
@@ -10,69 +11,69 @@ function PrefsFormWidget( config ) {
 	this.$element.addClass("rater-prefsFormWidget");
 
 	this.layout =  new OO.ui.FieldsetLayout( {
-		label: "Preferences",
+		label: i18n.t("dialog-prefs"),
 		$element: this.$element
 	} );
 
 	this.preferences = {
 		"autostart": {
 			input: new OO.ui.ToggleSwitchWidget(),
-			label: "Autostart Rater"
+			label: i18n.t("prefs-autostart")
 		},
 		"autostartRedirects": {
 			input: new OO.ui.ToggleSwitchWidget(),
-			label: "Autostart on redirects"
+			label: i18n.t("prefs-autostart-redirects")
 		},
 		"autostartNamespaces": {
 			input: new mw.widgets.NamespacesMultiselectWidget(),
-			label: "Autostart in these namespaces"
+			label: i18n.t("prefs-autostart-namespaces")
 		},
 		"bypassRedirects": {
 			input: new OO.ui.ToggleSwitchWidget(),
-			label: "Bypass redirects to banners"
+			label: i18n.t("prefs-bypass-redirects")
 		},
 		"autofillClassFromOthers":  {
 			input: new OO.ui.ToggleSwitchWidget(),
-			label: "Autofill class from other banners"
+			label: i18n.t("prefs-autofill-class-others")
 		},
 		"autofillClassFromOres": {
 			input: new OO.ui.ToggleSwitchWidget(),
-			label: "Autofill class based on ORES prediction"
+			label: i18n.t("prefs-autofill-class-ores")
 		},
 		"autofillImportance": {
 			input: new OO.ui.ToggleSwitchWidget(),
-			label: "Autofill low importance"
+			label: i18n.t("prefs-autofill-importance")
 		},
 		"collapseParamsLowerLimit": {
 			input: new OO.ui.NumberInputWidget( { "min": 1 } ),
-			label: "Minimum number of parameters to show uncollapsed"
+			label: i18n.t("prefs-min-params")
 		},
 		"watchlist": {
 			input: new OO.ui.ButtonSelectWidget( {
 				items: [
 					new OO.ui.ButtonOptionWidget( {
 						data: "preferences",
-						label: "Default",
-						title: "Uses the same setting as if you manually edited the page, as per Special:Preferences"
+						label: i18n.t("prefs-watchlist-default"),
+						title: i18n.t("prefs-watchlist-default-title")
 					} ),
 					new OO.ui.ButtonOptionWidget( {
 						data: "watch",
-						label: "Always",
-						title: "Always add pages Rater edits to your watchlist"
+						label: i18n.t("prefs-watchlist-always"),
+						title: i18n.t("prefs-watchlist-always-title")
 					} ),
 					new OO.ui.ButtonOptionWidget( {
 						data: "nochange",
-						label: "Never",
-						title: "Never add pages Rater edit to your watchlist"
+						label: i18n.t("prefs-watchlist-never"),
+						title: i18n.t("prefs-watchlist-never-title")
 					} ),
 				]
 			}).selectItemByData("preferences"),
-			label: "Add edited pages to watchlist"
+			label: i18n.t("prefs-watchlist-label")
 		},
 		"resetCache": {
 			input: new OO.ui.ButtonWidget( {
-				label: "Reset cache",
-				title: "Remove cached data, including list of WikiProjects and template parameters",
+				label: i18n.t("prefs-reset-cache"),
+				title: i18n.t("prefs-reset-cache-title"),
 				flags: ["destructive"]
 			} )
 		}
@@ -109,7 +110,7 @@ PrefsFormWidget.prototype.setPrefValues = function(prefs) {
 				input.addTag(
 					ns.toString(),
 					ns === 0
-						? "(Main)"
+						? i18n.t("namespace-main")
 						: config.mw.wgFormattedNamespaces[ns]
 				)
 			);
@@ -143,7 +144,7 @@ PrefsFormWidget.prototype.getPrefs = function() {
 };
 
 PrefsFormWidget.prototype.onResetCacheClick = function() {
-	OO.ui.confirm("After reseting cache, Rater will close and restart. Any changes made will be discarded.")
+	OO.ui.confirm(i18n.t("confirm-reset-cache"))
 		.then(confirmed => {
 			if (confirmed) { 
 				this.emit("resetCache");
