@@ -58,6 +58,15 @@
 	"prefs-reset-cache": "Reset cache",
 	"prefs-reset-cache-title": "Remove cached data, including list of WikiProjects and template parameters",
 	"namespace-main": "(Main)",
-	"confirm-reset-cache": "After reseting cache, Rater will close and restart. Any changes made will be discarded."
+	"confirm-reset-cache": "After reseting cache, Rater will close and restart. Any changes made will be discarded.",
+	"topbar-add-wikiproject": "Add a WikiProject...",
+	"button-add": "Add",
+	"topbar-set-all": "Set all...",
+	"topbar-classes": "Classes",
+	"topbar-no-class": "no class",
+	"topbar-importances": "Importances",
+	"topbar-no-importance": "no importance",
+	"button-remove-all": "Remove all",
+	"button-clear-all": "Clear all"
 }
 

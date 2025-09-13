@@ -394,7 +394,7 @@ MainWindow.prototype.getActionProcess = function ( action ) {
 				(code, err) => $.Deferred().reject(
 					new OO.ui.Error(
 						$("<div>").append(
-							$("<strong style='display:block;'>").text("Could not save preferences."),
+							$("<strong style='display:block;'>").text(i18n.t("error-save-prefs")),
 							$("<span style='color:#777'>").text( makeErrorMsg(code, err) )
 						)
 					)
@@ -430,7 +430,7 @@ MainWindow.prototype.getActionProcess = function ( action ) {
 			).catch((code, err) => $.Deferred().reject(
 				new OO.ui.Error(
 					$("<div>").append(
-						$("<strong style='display:block;'>").text("Could not save your changes."),
+						$("<strong style='display:block;'>").text(i18n.t("error-could-not-save")),
 						$("<span style='color:#777'>").text( makeErrorMsg(code, err) )
 					)
 				)
@@ -528,7 +528,7 @@ MainWindow.prototype.getActionProcess = function ( action ) {
 	} else if (!action && this.bannerList.changed) {
 		// Confirm closing of dialog if there have been changes 
 		return new OO.ui.Process().next(
-			OO.ui.confirm(i18n.t("confirm-close"), {title: "Close Rater?"})
+			OO.ui.confirm(i18n.t("confirm-close"), {title: i18n.t("confirm-close-title")})
 				.then(confirmed => confirmed ? this.close() : null)
 		);
 	}

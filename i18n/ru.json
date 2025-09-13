@@ -58,6 +58,15 @@
 	"prefs-reset-cache": "Сбросить кэш",
 	"prefs-reset-cache-title": "Удалить кэшированные данные, включая список проектов и параметры шаблонов",
 	"namespace-main": "(Основное)",
-	"confirm-reset-cache": "После сброса кэша Rater закроется и перезапустится. Все несохраненные изменения будут потеряны."
+	"confirm-reset-cache": "После сброса кэша Rater закроется и перезапустится. Все несохраненные изменения будут потеряны.",
+	"topbar-add-wikiproject": "Добавить WikiProject...",
+	"button-add": "Добавить",
+	"topbar-set-all": "Поставить всем...",
+	"topbar-classes": "Классы",
+	"topbar-no-class": "без класса",
+	"topbar-importances": "Важность",
+	"topbar-no-importance": "без важности",
+	"button-remove-all": "Удалить всё",
+	"button-clear-all": "Очистить всё"
 }
 

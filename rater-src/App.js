@@ -6,7 +6,7 @@ import windowManager from "./windowManager";
 import i18n from "./i18n";
 // <nowiki>
 
-(function App() {
+function startApp() {
 	let stylesheet;
 
 	const showMainWindow = data => {
@@ -75,5 +75,12 @@ import i18n from "./i18n";
 
 	// Invocation by auto-start (do not show message on error)
 	autoStart().then(showMainWindow);
-})();
+}
+
+// Ensure i18n is loaded before constructing UI so initial labels are localized
+try {
+	i18n.load().always(startApp);
+} catch (e) {
+	startApp();
+}
 // </nowiki>
