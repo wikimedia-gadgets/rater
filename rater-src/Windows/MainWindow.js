@@ -25,62 +25,76 @@ MainWindow.static.title = $("<span>").css({"font-weight":"normal"}).append(
 	$("<span>").css({"font-size":"90%"}).text("v"+appConfig.script.version)
 );
 MainWindow.static.size = "large";
-MainWindow.static.actions = [
-	// Primary (top right):
-	{
-		label: "X", // not using an icon since color becomes inverted, i.e. white on light-grey
-		title: i18n.t("dialog-close-title"),
-		flags: "primary",
-		modes: ["edit", "diff", "preview"] // available when current mode isn't "prefs"
-	},
-	// Safe (top left)
-	{
-		action: "showPrefs",
-		flags: "safe",
-		icon: "settings",
-		title: i18n.t("dialog-prefs"),
-		modes: ["edit", "diff", "preview"] // available when current mode isn't "prefs"
-	},
-	// Others (bottom)
-	{
-		action: "save",
-		accessKey: "s",
-		label: new OO.ui.HtmlSnippet("<span style='padding:0 1em;'>" + i18n.t("action-save") + "</span>"),
-		flags: ["primary", "progressive"],
-		modes: ["edit", "diff", "preview"] // available when current mode isn't "prefs"
-	},
-	{
-		action: "preview",
-		accessKey: "p",
-		label: i18n.t("action-preview"),
-		modes: ["edit", "diff"] // available when current mode isn't "preview" or "prefs"
-	},
-	{
-		action: "changes",
-		accessKey: "v",
-		label: i18n.t("action-changes"),
-		modes: ["edit", "preview"] // available when current mode isn't "diff" or "prefs"
-	},
-	{
-		action: "back",
-		label: i18n.t("action-back"),
-		modes: ["diff", "preview"] // available when current mode is "diff" or "prefs"
-	},
+// Function to create actions with optional localization
+function createActions(useI18n = false) {
+	const t = useI18n ? i18n.t : (key) => key;
+	const getLabel = (key) => useI18n ? new OO.ui.HtmlSnippet("<span style='padding:0 1em;'>" + i18n.t(key) + "</span>") : key;
 	
-	// "prefs" mode only
-	{
-		action: "savePrefs",
-		label: i18n.t("action-update"),
-		flags: ["primary", "progressive"],
-		modes: "prefs" 
-	},
-	{
-		action: "closePrefs",
-		label: i18n.t("action-cancel"),
-		flags: "safe",
-		modes: "prefs"
-	}
-];
+	return [
+		// Primary (top right):
+		{
+			label: "X", // not using an icon since color becomes inverted, i.e. white on light-grey
+			title: t("dialog-close-title"),
+			flags: "primary",
+			modes: ["edit", "diff", "preview"] // available when current mode isn't "prefs"
+		},
+		// Safe (top left)
+		{
+			action: "showPrefs",
+			flags: "safe",
+			icon: "settings",
+			title: t("dialog-prefs"),
+			modes: ["edit", "diff", "preview"] // available when current mode isn't "prefs"
+		},
+		// Others (bottom)
+		{
+			action: "save",
+			accessKey: "s",
+			label: useI18n ? getLabel("action-save") : "Save",
+			flags: ["primary", "progressive"],
+			modes: ["edit", "diff", "preview"] // available when current mode isn't "prefs"
+		},
+		{
+			action: "preview",
+			accessKey: "p",
+			label: t("action-preview"),
+			modes: ["edit", "diff"] // available when current mode isn't "preview" or "prefs"
+		},
+		{
+			action: "changes",
+			accessKey: "v",
+			label: t("action-changes"),
+			modes: ["edit", "preview"] // available when current mode isn't "diff" or "prefs"
+		},
+		{
+			action: "back",
+			label: t("action-back"),
+			modes: ["diff", "preview"] // available when current mode is "diff" or "prefs"
+		},
+		
+		// "prefs" mode only
+		{
+			action: "savePrefs",
+			label: t("action-update"),
+			flags: ["primary", "progressive"],
+			modes: "prefs" 
+		},
+		{
+			action: "closePrefs",
+			label: t("action-cancel"),
+			flags: "safe",
+			modes: "prefs"
+		}
+	];
+}
+
+// Initialize with English fallback
+MainWindow.static.actions = createActions(false);
+
+// Update actions with i18n after language is loaded
+i18n.load().then(() => {
+	MainWindow.static.actions = createActions(true);
+});
 
 // Customize the initialize() function: This is where to add content to the dialog body and set up event handlers.
 MainWindow.prototype.initialize = function () {
