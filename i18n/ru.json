@@ -72,7 +72,6 @@
 	"button-clear-parameters": "Очистить параметры",
 	"placeholder-parameter-name": "имя параметра",
 	"placeholder-parameter-value": "значение параметра",
-	"label-equals": "=",
 	"label-add-parameter": "Добавить параметр:"
 }
 

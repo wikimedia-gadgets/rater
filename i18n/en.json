@@ -72,7 +72,6 @@
 	"button-clear-parameters": "Clear parameters",
 	"placeholder-parameter-name": "parameter name",
 	"placeholder-parameter-value": "parameter value",
-	"label-equals": "=",
 	"label-add-parameter": "Add parameter:"
 }
 
