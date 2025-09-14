@@ -13,10 +13,9 @@ function HorizontalLayoutWidget( config ) {
 	// Call parent constructor
 	HorizontalLayoutWidget.super.call( this, {} );
     
-	this.layout = new OO.ui.HorizontalLayout( {
-		...config,
+	this.layout = new OO.ui.HorizontalLayout( Object.assign({}, config, {
 		$element: this.$element
-	});
+	}));
 
 }
 OO.inheritClass( HorizontalLayoutWidget, OO.ui.Widget );

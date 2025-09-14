@@ -87,10 +87,10 @@ var setupRater = function(clickEvent) {
 	// Retrieve and store classes, importances, and TemplateData (task 4)
 	var templateDetailsPromise = parseTalkPromise.then(function(templates) {
 		// Wait for all promises to resolve
-		return $.when.apply(null, [
-			...templates.map(template => template.isShellTemplate() ? null : template.setClassesAndImportances()),
-			...templates.map(template => template.setParamDataAndSuggestions())
-		]).then(() => {
+		return $.when.apply(null, [].concat(
+			templates.map(template => template.isShellTemplate() ? null : template.setClassesAndImportances()),
+			templates.map(template => template.setParamDataAndSuggestions())
+		)).then(() => {
 			// Add missing required/suggested values
 			templates.forEach(template => template.addMissingParams());
 			// Return the now-modified templates
@@ -223,7 +223,7 @@ var setupRater = function(clickEvent) {
 				isArticle: subjectIsArticle
 			};
 			if (subjectPageCheck) {
-				result = { ...result, ...subjectPageCheck };
+				result = Object.assign({}, result, subjectPageCheck);
 			}
 			if (oresPredicition && subjectPageCheck && !subjectPageCheck.isGA && !subjectPageCheck.isFA && !subjectPageCheck.isFL) {
 				result.ores = oresPredicition;
