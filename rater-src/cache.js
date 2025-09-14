@@ -23,7 +23,7 @@ const write = function(key, val, staleDays, expiryDays) {
 			expiryDate: new Date(Date.now() + expiryDuration).toISOString()
 		});
 		localStorage.setItem("Rater-"+key, stringVal);
-	}  catch(e) {} // eslint-disable-line no-empty
+	}  catch (_e) {} // eslint-disable-line no-unused-vars
 };
 /** read
  * @param {String} key

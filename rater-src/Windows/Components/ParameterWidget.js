@@ -19,7 +19,7 @@ function ParameterWidget( parameter, paramData, config ) {
 	this.isSuggested = this.paramData.suggested;
 
 	// Make a checkbox if only 1 or 2 allowed values
-	switch(this.allowedValues.length) {	/* eslint-disable no-fallthrough */
+	switch(this.allowedValues.length) {
 	case 1:
 		this.allowedValues[1] = null;
 		/* fall-through */
@@ -41,7 +41,7 @@ function ParameterWidget( parameter, paramData, config ) {
 		break;
 	default:
 			// No checkbox
-	} /* eslint-enable no-fallthrough */
+	}
 
 	/* --- EDIT PARAMETER LAYOUT --- */
 

@@ -91,7 +91,7 @@ Template.prototype.getTitle = function() {
  *  rather than just top-level templates. 
  * @return {Template[]} templates
 */
-var parseTemplates = function(wikitext, recursive) { /* eslint-disable no-control-regex */
+var parseTemplates = function(wikitext, recursive) {
 	if (!wikitext) {
 		return [];
 	}
@@ -227,7 +227,7 @@ var parseTemplates = function(wikitext, recursive) { /* eslint-disable no-contro
 	}
 
 	return result; 
-}; /* eslint-enable no-control-regex */
+};
 
 /**
  * @param {Template|Template[]} templates
@@ -366,7 +366,7 @@ Template.prototype.setParamDataAndSuggestions = function() {
 								.replace(/].*$/, "]")
 						);
 						self.paramData[paraName].allowedValues = allowedVals;
-					} catch(e) {
+					} catch (_e) { // eslint-disable-line no-unused-vars
 						console.warn("[Rater] Could not parse allowed values in description:\n  "+
 					paraData.description.en + "\n Check TemplateData for parameter |" + paraName +
 					"= in " + self.getTitle().getPrefixedText());

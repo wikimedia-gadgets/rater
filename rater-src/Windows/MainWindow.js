@@ -587,7 +587,6 @@ MainWindow.prototype.onSearchSelect = function(data) {
 			"{{" + mw.html.escape(name) + "}} is not a recognised WikiProject banner.<br/>Do you want to continue?"
 		);
 	} else if (name === "WikiProject Disambiguation" && $("#ca-talk.new").length !== 0 && this.bannerList.items.length === 0) {
-		// eslint-disable-next-line no-useless-escape
 		confirmText = "New talk pages shouldn't be created if they will only contain the \{\{WikiProject Disambiguation\}\} banner. Continue?";
 	}
 	$.when( confirmText ? OO.ui.confirm(confirmText) : true)
@@ -655,7 +654,6 @@ MainWindow.prototype.transformTalkWikitext = function(talkWikitext) {
 	// replace insertion point (first control character) with a different control character
 	talkWikitext = talkWikitext.replace("\x01", "\x02");
 	// remove other control characters
-	/* eslint-disable-next-line no-control-regex */
 	talkWikitext = talkWikitext.replace(/(?:\s|\n)*\x01(?:\s|\n)*/g,"");
 	// split into wikitext before/after the remaining control character (and trim each section)
 	var talkWikitextSections = talkWikitext.split("\x02").map(t => t.trim());
