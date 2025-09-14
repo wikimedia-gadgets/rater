@@ -67,6 +67,12 @@
 	"topbar-importances": "Важность",
 	"topbar-no-importance": "без важности",
 	"button-remove-all": "Удалить всё",
-	"button-clear-all": "Очистить всё"
+	"button-clear-all": "Очистить всё",
+	"button-remove-banner": "Удалить баннер",
+	"button-clear-parameters": "Очистить параметры",
+	"placeholder-parameter-name": "имя параметра",
+	"placeholder-parameter-value": "значение параметра",
+	"label-equals": "=",
+	"label-add-parameter": "Добавить параметр:"
 }
 

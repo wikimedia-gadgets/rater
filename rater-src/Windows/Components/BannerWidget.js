@@ -6,7 +6,55 @@ import { filterAndMap, classMask, importanceMask } from "../../util";
 import {Template, getWithRedirectTo} from "../../Template";
 import HorizontalLayoutWidget from "./HorizontalLayoutWidget";
 import globalConfig from "../../config";
+import i18n from "../../i18n";
 // <nowiki>
+
+// Function to create localized UI elements
+function createBannerWidgetElements(useI18n = false) {
+	const t = useI18n ? i18n.t : (key) => key;
+	
+	return {
+		removeButton: {
+			icon: "trash",
+			label: t("button-remove-banner"),
+			title: t("button-remove-banner"),
+			flags: "destructive",
+			$element: $("<div style=\"width:100%\">")
+		},
+		clearButton: {
+			icon: "cancel",
+			label: t("button-clear-parameters"),
+			title: t("button-clear-parameters"),
+			flags: "destructive"
+		},
+		parameterNameInput: {
+			placeholder: t("placeholder-parameter-name"),
+			value: ""
+		},
+		parameterValueInput: {
+			placeholder: t("placeholder-parameter-value"),
+			value: ""
+		},
+		addButton: {
+			label: t("button-add"),
+			flags: "primary"
+		},
+		equalsLabel: {
+			label: t("label-equals")
+		},
+		addParameterLabel: {
+			label: t("label-add-parameter")
+		}
+	};
+}
+
+// Initialize with English fallback
+BannerWidget.staticElements = createBannerWidgetElements(false);
+
+// Update with i18n after language is loaded
+i18n.load().then(() => {
+	BannerWidget.staticElements = createBannerWidgetElements(true);
+});
 
 function BannerWidget( template, config ) {
 	// Configuration initialization
@@ -37,20 +85,8 @@ function BannerWidget( template, config ) {
 
 	/* --- TITLE AND RATINGS --- */
 
-	this.removeButton = new OO.ui.ButtonWidget( {
-		icon: "trash",
-		label: "Remove banner",
-		title: "Remove banner",
-		flags: "destructive",
-		$element: $("<div style=\"width:100%\">")
-	} );
-	this.clearButton = new OO.ui.ButtonWidget( {
-		icon: "cancel",
-		label: "Clear parameters",
-		title: "Clear parameters",
-		flags: "destructive",
-		$element: $("<div style=\"width:100%\">")
-	} );
+	this.removeButton = new OO.ui.ButtonWidget( BannerWidget.staticElements.removeButton );
+	this.clearButton = new OO.ui.ButtonWidget( BannerWidget.staticElements.clearButton );
 	this.removeButton.$element.find("a").css("width","100%");
 	this.clearButton.$element.find("a").css("width","100%");
 
@@ -180,7 +216,7 @@ function BannerWidget( template, config ) {
 
 	this.addParameterNameInput = new SuggestionLookupTextInputWidget({
 		suggestions: template.parameterSuggestions,
-		placeholder: "parameter name",
+		placeholder: BannerWidget.staticElements.parameterNameInput.placeholder,
 		$element: $("<div style='display:inline-block;width:40%'>"),
 		validate: function(val) {
 			let {validName, name, value} = this.getAddParametersInfo(val);
@@ -191,7 +227,7 @@ function BannerWidget( template, config ) {
 	});
 	this.updateAddParameterNameSuggestions();
 	this.addParameterValueInput = new SuggestionLookupTextInputWidget({
-		placeholder: "parameter value",
+		placeholder: BannerWidget.staticElements.parameterValueInput.placeholder,
 		$element: $("<div style='display:inline-block;width:40%'>"),
 		validate: function(val) {
 			let {validValue, name, value} = this.getAddParametersInfo(null, val);
@@ -201,21 +237,21 @@ function BannerWidget( template, config ) {
 		$overlay: this.$overlay
 	});
 	this.addParameterButton = new OO.ui.ButtonWidget({
-		label: "Add",
+		...BannerWidget.staticElements.addButton,
 		icon: "add",
 		flags: "progressive"
 	}).setDisabled(true);
 	this.addParameterControls = new HorizontalLayoutWidget( {
 		items: [
 			this.addParameterNameInput,
-			new OO.ui.LabelWidget({label:"="}),
+			new OO.ui.LabelWidget({label: BannerWidget.staticElements.equalsLabel.label}),
 			this.addParameterValueInput,
 			this.addParameterButton
 		]
 	} );
 
 	this.addParameterLayout = new OO.ui.FieldLayout(this.addParameterControls, {
-		label: "Add parameter:",
+		label: BannerWidget.staticElements.addParameterLabel.label,
 		align: "top"
 	}).toggle(false);
 	// A hack to make messages appear on their own line
