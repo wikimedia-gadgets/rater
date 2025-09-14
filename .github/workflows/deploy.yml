@@ -29,23 +29,23 @@ jobs:
     
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        tag_name: ${{ github.ref_name }}
+        name: Release ${{ github.ref_name }}
         draft: false
         prerelease: false
         body: |
-          ## Changes
-          - Updated dependencies
-          - Migrated to ESLint 9.x
-          - Fixed all linting warnings
+          ## Changes in ${{ github.ref_name }}
+          
+          This release includes the latest changes and improvements to the Rater userscript.
           
           ## Build Artifacts
-          - `dist/rater.js` - Development build
-          - `dist/rater.min.js` - Production build
+          - `dist/rater.js` - Development build (unminified)
+          - `dist/rater.min.js` - Production build (minified)
+          
+          ## Installation
+          Install the userscript by copying the contents of `dist/rater.min.js` into your userscript manager.
         files: |
           dist/rater.js
           dist/rater.min.js
