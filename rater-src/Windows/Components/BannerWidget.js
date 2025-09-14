@@ -314,6 +314,9 @@ function BannerWidget( template, config ) {
 		this.bypassRedirect();
 	}
 
+	// Refresh instance labels/placeholders after i18n loads
+	i18n.load().then(function(){ this.applyI18nStrings(); }.bind(this));
+
 }
 OO.inheritClass( BannerWidget, OO.ui.Widget );
 
@@ -478,6 +481,34 @@ BannerWidget.prototype.updateAddParameterNameSuggestions = function() {
 			suggestion => !paramsInUse[suggestion.data]
 		)
 	);
+};
+
+BannerWidget.prototype.applyI18nStrings = function() {
+	var S = BannerWidget.staticElements || {};
+	// Buttons
+	if (S.removeBanner) {
+		this.removeButton.setLabel(S.removeBanner);
+		this.removeButton.setTitle(S.removeBanner);
+	}
+	if (S.clearParameters) {
+		this.clearButton.setLabel(S.clearParameters);
+		this.clearButton.setTitle(S.clearParameters);
+	}
+	// Inputs
+	if (S.parameterNameInput && S.parameterNameInput.placeholder) {
+		this.addParameterNameInput.$input.attr("placeholder", S.parameterNameInput.placeholder);
+	}
+	if (S.parameterValueInput && S.parameterValueInput.placeholder) {
+		this.addParameterValueInput.$input.attr("placeholder", S.parameterValueInput.placeholder);
+	}
+	// Add button
+	if (S.addButton && S.addButton.label) {
+		this.addParameterButton.setLabel(S.addButton.label);
+	}
+	// Field label
+	if (S.addParameterLabel && S.addParameterLabel.label) {
+		this.addParameterLayout.setLabel(S.addParameterLabel.label);
+	}
 };
 
 BannerWidget.prototype.onRemoveButtonClick = function() {
