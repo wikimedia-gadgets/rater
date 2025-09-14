@@ -40,7 +40,7 @@ function createBannerWidgetElements(useI18n = false) {
 			flags: "primary"
 		},
 		equalsLabel: {
-			label: t("label-equals")
+			label: "="
 		},
 		addParameterLabel: {
 			label: t("label-add-parameter")
