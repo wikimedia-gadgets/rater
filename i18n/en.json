@@ -73,6 +73,15 @@
 	"button-clear-parameters": "Clear parameters",
 	"placeholder-parameter-name": "parameter name",
 	"placeholder-parameter-value": "parameter value",
-	"label-add-parameter": "Add parameter:"
+	"label-add-parameter": "Add parameter:",
+	"label-class": "Class",
+	"label-importance": "Importance",
+	"option-no-class": "no class",
+	"option-no-importance": "no importance",
+	"option-auto-detect": "auto-detect",
+	"option-inherit-from-shell": "inherit from shell",
+	"label-inactive-suffix": " (inactive)",
+	"notice-parameter-autofilled": "Parameter value will be autofilled",
+	"error-parameter-present": "Parameter is already present"
 }
 

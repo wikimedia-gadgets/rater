@@ -73,6 +73,15 @@
 	"button-clear-parameters": "Очистить параметры",
 	"placeholder-parameter-name": "имя параметра",
 	"placeholder-parameter-value": "значение параметра",
-	"label-add-parameter": "Добавить параметр:"
+	"label-add-parameter": "Добавить параметр:",
+	"label-class": "Класс",
+	"label-importance": "Важность",
+	"option-no-class": "без класса",
+	"option-no-importance": "без важности",
+	"option-auto-detect": "автоопределение",
+	"option-inherit-from-shell": "унаследовать от блока",
+	"label-inactive-suffix": " (неактивен)",
+	"notice-parameter-autofilled": "Значение параметра будет подставлено автоматически",
+	"error-parameter-present": "Параметр уже присутствует"
 }
 

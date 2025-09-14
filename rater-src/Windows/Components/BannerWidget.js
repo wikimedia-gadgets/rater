@@ -44,7 +44,14 @@ function createBannerWidgetElements(useI18n = false) {
 		},
 		addParameterLabel: {
 			label: t("label-add-parameter")
-		}
+		},
+		classLabel: t("label-class"),
+		importanceLabel: t("label-importance"),
+		optionNoClass: t("option-no-class"),
+		optionNoImportance: t("option-no-importance"),
+		optionAutoDetect: t("option-auto-detect"),
+		optionInheritFromShell: t("option-inherit-from-shell"),
+		inactiveSuffix: t("label-inactive-suffix")
 	};
 }
 
@@ -96,7 +103,7 @@ function BannerWidget( template, config ) {
 	} );
 
 	this.mainLabelPopupButton = new OO.ui.PopupButtonWidget( {
-		label: `{{${template.getTitle().getMainText()}}}${this.inactiveProject ? " (inactive)" : ""}`,
+		label: `{{${template.getTitle().getMainText()}}}${this.inactiveProject ? BannerWidget.staticElements.inactiveSuffix : ""}`,
 		$element: $("<span style='display:inline-block;width:48%;margin-right:0;padding-right:8px'>"),
 		$overlay: this.$overlay,
 		indicator:"down",
@@ -116,12 +123,12 @@ function BannerWidget( template, config ) {
 	// Rating dropdowns
 	if (this.isShellTemplate) {
 		this.classDropdown = new DropdownParameterWidget( {
-			label: new OO.ui.HtmlSnippet("<span style=\"color:#777\">Class</span>"),
+			label: new OO.ui.HtmlSnippet(`<span style="color:#777">${BannerWidget.staticElements.classLabel}</span>`),
 			menu: {
 				items: [
 					new OO.ui.MenuOptionWidget( {
 						data: null,
-						label: new OO.ui.HtmlSnippet(`<span style="color:#777">(${config.isArticle ? "no class" : "auto-detect"})</span>`)
+						label: new OO.ui.HtmlSnippet(`<span style="color:#777">(${config.isArticle ? BannerWidget.staticElements.optionNoClass : BannerWidget.staticElements.optionAutoDetect})</span>`)
 					} ),
 					...globalConfig.bannerDefaults.classes.map( classname =>
 						new OO.ui.MenuOptionWidget( {
@@ -137,12 +144,12 @@ function BannerWidget( template, config ) {
 		this.classDropdown.getMenu().selectItemByData( shellClassParam && classMask(shellClassParam.value) );
 	} else if (this.hasClassRatings) {
 		this.classDropdown = new DropdownParameterWidget( {
-			label: new OO.ui.HtmlSnippet("<span style=\"color:#777\">Class</span>"),
+			label: new OO.ui.HtmlSnippet(`<span style="color:#777">${BannerWidget.staticElements.classLabel}</span>`),
 			menu: {
 				items: [
 					new OO.ui.MenuOptionWidget( {
 						data: null,
-						label: new OO.ui.HtmlSnippet(`<span style="color:#777">(${config.isArticle ? "inherit from shell" : "auto-detect"})</span>`)
+						label: new OO.ui.HtmlSnippet(`<span style="color:#777">(${config.isArticle ? BannerWidget.staticElements.optionInheritFromShell : BannerWidget.staticElements.optionAutoDetect})</span>`)
 					} ),
 					...template.classes.map( classname =>
 						new OO.ui.MenuOptionWidget( {
@@ -160,11 +167,11 @@ function BannerWidget( template, config ) {
 
 	if (this.hasImportanceRatings) {
 		this.importanceDropdown = new DropdownParameterWidget( {
-			label: new OO.ui.HtmlSnippet("<span style=\"color:#777\">Importance</span>"),
+			label: new OO.ui.HtmlSnippet(`<span style="color:#777">${BannerWidget.staticElements.importanceLabel}</span>`),
 			menu: {
 				items: [
 					new OO.ui.MenuOptionWidget( {
-						data: null, label: new OO.ui.HtmlSnippet(`<span style="color:#777">(${config.isArticle ? "no importance" : "auto-detect"})</span>`)
+						data: null, label: new OO.ui.HtmlSnippet(`<span style="color:#777">(${config.isArticle ? BannerWidget.staticElements.optionNoImportance : BannerWidget.staticElements.optionAutoDetect})</span>`)
 					} ),
 					...template.importances.map(importance =>
 						new OO.ui.MenuOptionWidget( {
@@ -425,9 +432,9 @@ BannerWidget.prototype.onAddParameterNameChange = function() {
 	// Set button disabled state based on validity
 	this.addParameterButton.setDisabled(!validName || !validValue);
 	// Show notice if autovalue will be used
-	this.addParameterLayout.setNotices( validName && isAutovalue ? ["Parameter value will be autofilled"] : [] );
+	this.addParameterLayout.setNotices( validName && isAutovalue ? [i18n.t("notice-parameter-autofilled")] : [] );
 	// Show error is the banner already has the parameter set
-	this.addParameterLayout.setErrors( isAlreadyIncluded ? ["Parameter is already present"] : [] );
+	this.addParameterLayout.setErrors( isAlreadyIncluded ? [i18n.t("error-parameter-present")] : [] );
 };
 
 BannerWidget.prototype.onAddParameterNameEnter = function() {
@@ -437,7 +444,7 @@ BannerWidget.prototype.onAddParameterNameEnter = function() {
 BannerWidget.prototype.onAddParameterValueChange = function() {
 	let { validName, validValue, isAutovalue } = this.getAddParametersInfo();
 	this.addParameterButton.setDisabled(!validName || !validValue);
-	this.addParameterLayout.setNotices( validName && isAutovalue ? ["Parameter value will be autofilled"] : [] ); 
+	this.addParameterLayout.setNotices( validName && isAutovalue ? [i18n.t("notice-parameter-autofilled")] : [] ); 
 };
 
 BannerWidget.prototype.onAddParameterValueEnter = function() {
@@ -509,6 +516,25 @@ BannerWidget.prototype.applyI18nStrings = function() {
 	if (S.addParameterLabel && S.addParameterLabel.label) {
 		this.addParameterLayout.setLabel(S.addParameterLabel.label);
 	}
+	// Title inactive suffix
+	if (this.inactiveProject) {
+		this.mainLabelPopupButton.setLabel(`{{${this.mainText}}}${i18n.t("label-inactive-suffix")}`);
+	}
+	// Dropdown headers and first options
+	if (this.classDropdown) {
+		this.classDropdown.setLabel(new OO.ui.HtmlSnippet(`<span style="color:#777">${i18n.t("label-class")}</span>`));
+		var classFirst = this.classDropdown.getMenu().findItemFromData(null);
+		if (classFirst) {
+			classFirst.setLabel(new OO.ui.HtmlSnippet(`<span style="color:#777">(${i18n.t("option-auto-detect")})</span>`));
+		}
+	}
+	if (this.importanceDropdown) {
+		this.importanceDropdown.setLabel(new OO.ui.HtmlSnippet(`<span style="color:#777">${i18n.t("label-importance")}</span>`));
+		var impFirst = this.importanceDropdown.getMenu().findItemFromData(null);
+		if (impFirst) {
+			impFirst.setLabel(new OO.ui.HtmlSnippet(`<span style="color:#777">(${i18n.t("option-auto-detect")})</span>`));
+		}
+	}
 };
 
 BannerWidget.prototype.onRemoveButtonClick = function() {
@@ -534,7 +560,7 @@ BannerWidget.prototype.bypassRedirect = function() {
 	// Store the bypassed name
 	this.bypassedName = this.name;
 	// Update title label
-	this.mainLabelPopupButton.setLabel(`{{${this.redirectTargetMainText}}}${this.inactiveProject ? " (inactive)" : ""}`);
+	this.mainLabelPopupButton.setLabel(`{{${this.redirectTargetMainText}}}${this.inactiveProject ? i18n.t("label-inactive-suffix") : ""}`);
 	// Update properties
 	this.name = this.redirectTargetMainText;
 	this.mainText = this.redirectTargetMainText;
