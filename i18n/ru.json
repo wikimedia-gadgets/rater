@@ -74,6 +74,7 @@
 	"placeholder-parameter-name": "имя параметра",
 	"placeholder-parameter-value": "значение параметра",
 	"label-add-parameter": "Добавить параметр:",
+	"button-add-parameter": "Добавить параметр",
 	"label-class": "Класс",
 	"label-importance": "Важность",
 	"option-no-class": "без класса",

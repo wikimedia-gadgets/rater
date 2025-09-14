@@ -74,6 +74,7 @@
 	"placeholder-parameter-name": "parameter name",
 	"placeholder-parameter-value": "parameter value",
 	"label-add-parameter": "Add parameter:",
+	"button-add-parameter": "Add parameter",
 	"label-class": "Class",
 	"label-importance": "Importance",
 	"option-no-class": "no class",
