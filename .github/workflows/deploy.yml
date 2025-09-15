@@ -29,6 +29,15 @@ jobs:
     - name: Build project
       run: npm run build
     
+    - name: Get tag message
+      if: startsWith(github.ref, 'refs/tags/')
+      id: tag_message
+      run: |
+        TAG_MESSAGE=$(git tag -l --format='%(contents)' ${{ github.ref_name }})
+        echo "tag_message<<EOF" >> $GITHUB_OUTPUT
+        echo "$TAG_MESSAGE" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+    
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v1
@@ -38,9 +47,7 @@ jobs:
         draft: false
         prerelease: false
         body: |
-          ## Changes in ${{ github.ref_name }}
-          
-          This release includes the latest changes and improvements to the Rater userscript.
+          ${{ steps.tag_message.outputs.tag_message }}
           
           ## Build Artifacts
           - `dist/rater.js` - Development build (unminified)
