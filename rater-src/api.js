@@ -42,7 +42,7 @@ var getPage = function(title, params) {
 				"titles": title,
 				"prop": "revisions|info",
 				"rvprop": "content|timestamp",
-				"rvslots": "main"					
+				"rvslots": "main"
 			},
 			params
 		)

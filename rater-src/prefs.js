@@ -63,7 +63,7 @@ const getPrefs = () => getPrefsFromCache().then(
  * @param {Object} updatedPrefs object with key:value pairs for preferences json.
  */
 const setPrefs = function(updatedPrefs) {
-	return API.editWithRetry(prefsPage,	null,
+	return API.editWithRetry(prefsPage, null,
 		() => ({
 			"text": JSON.stringify(updatedPrefs),
 			"summary": "Saving Rater preferences " + config.script.advert
