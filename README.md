@@ -4,6 +4,36 @@ This is the source code for version 2 of the Wikipedia userscript [Rater](https:
 ## Installation instructions and user guide
 See [https://en.wikipedia.org/wiki/User:Evad37/rater](https://en.wikipedia.org/wiki/User:Evad37/rater).
 
+## How to manually test a patch on testwiki
+* `npm run build`
+* Copy paste the contents of dist/rater.js to https://test.wikipedia.org/wiki/User:[YOUR_USERNAME]/rater/app.js
+* Copy paste the contents of https://en.wikipedia.org/wiki/User:Evad37/rater.js to https://test.wikipedia.org/wiki/User:[YOUR_USERNAME]/rater.js
+   * Change line 37 to `var title = /* </nowiki> */ "User:[YOUR_USERNAME]/rater/app.js"; /* <nowiki> */`. If your username contains spaces, replace them with underscores.
+   * Change line 38 from en.wikipedia.org to test.wikipedia.org
+* Add `importScript('User:[YOUR_USERNAME]/rater.js');` to https://test.wikipedia.org/wiki/[YOUR_USERNAME]/common.js
+
+Improvements to this workflow are planned in [issue #29](https://github.com/wikimedia-gadgets/rater/issues/29)
+
+## How to deploy to enwiki
+* `npm run build`
+* manually add the following code to the top of dist/rater.min.js (because of [issue #28](https://github.com/wikimedia-gadgets/rater/issues/28))
+```
+// Disable error logging for this script
+// There is a high volume of errors with the following error:
+// Error: inheritClass: Origin is not a function (actually undefined)
+// This can be removed when that has been addressed.
+ mw.loader.using('mediawiki.storage').then(function () {
+   mw.storage.session.set( 'client-error-opt-out', '1' );
+ });
+
+```
+* copy paste the contents of dist/rater.min.js to https://en.wikipedia.org/wiki/User:Evad37/rater/app.js
+
+
+Evad37 has [given permission](https://en.wikipedia.org/w/index.php?title=User_talk:Evad37&diff=prev&oldid=1311616009) for English Wikipedia interface administrators to edit their userspace pages for the purpose of deploying updates to Rater.
+
+Improvements to this workflow are planned in [issue #30](https://github.com/wikimedia-gadgets/rater/issues/30)
+
 ## Repository structure
 - `index.js` is the main entry point, written in ES5. This is published to [User:Evad37/rater.js](https://en.wikipedia.org/wiki/User:Evad37/rater.js) (when deploying), or  [User:Evad37/rater/sandbox.js](https://en.wikipedia.org/wiki/User:Evad37/rater/sandbox.js) (for sandbox testing of changes). Or [User:Evad37/rater/beta.js](https://en.wikipedia.org/wiki/User:Evad37/rater/beta.js) for beta testing.
 - `rater-src\` contains the main source code for the app, split into modules, which may be written in ES6. Code here can assume that the ResourceLoader modules specified in the above files have been loaded and that the DOM is ready.
@@ -16,6 +46,7 @@ See [https://en.wikipedia.org/wiki/User:Evad37/rater](https://en.wikipedia.org/w
 - External scripts (other than those provided by MediaWiki) are located in the `lib\` folder, and deployed to subpages of [User:Evad37/rater/lib/](https://en.wikipedia.org/wiki/Special:PrefixIndex?prefix=User%3AEvad37%2Frater%2Flib%2F).
    - This allows the bundled source code size to be smaller, and easier to work with. The scripts can be loaded with `mw.loader.getScript`, which returns a promise that resolves when the script is loaded.
    - These files must have licencing which, to be compatible with English Wikipedia (CC-BY-SA-3.0/GFDL), is permissive with regards to distribution, modification, and sublicencing. E.g. Apache, BSD, MIT licences are okay; GNU licences are not okay. See [comparison table](https://en.wikipedia.org/wiki/Comparison_of_free_and_open-source_software_licenses).
+
 ### Tooling
 - **eslint** for ES6 linting
 - **jshint** for ES5 linting ([ESLint doesn't support override for ecmaVersion](https://github.com/sindresorhus/eslint-config-xo/issues/16#issuecomment-190302577))
@@ -34,6 +65,7 @@ See [https://en.wikipedia.org/wiki/User:Evad37/rater](https://en.wikipedia.org/w
     - Or maybe have QUnit tesing inside the app source code, that gets run if the url contains a query parameter such as `&testrater=1`?
 - [ ] Improve documentation
 - [ ] ... probably other things too - finish off this list, and/or put issues on the github page.
+
 ### Roadmap
 - [X] Complete the v2 rewrite
 - [X] Get beta testers to try out the new version. Fix/adjust things as they get reported.
