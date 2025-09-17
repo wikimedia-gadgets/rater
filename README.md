@@ -16,17 +16,6 @@ Improvements to this workflow are planned in [issue #29](https://github.com/wiki
 
 ## How to deploy to enwiki
 * `npm run build`
-* manually add the following code to the top of dist/rater.min.js (because of [issue #28](https://github.com/wikimedia-gadgets/rater/issues/28))
-```
-// Disable error logging for this script
-// There is a high volume of errors with the following error:
-// Error: inheritClass: Origin is not a function (actually undefined)
-// This can be removed when that has been addressed.
- mw.loader.using('mediawiki.storage').then(function () {
-   mw.storage.session.set( 'client-error-opt-out', '1' );
- });
-
-```
 * copy paste the contents of dist/rater.min.js to https://en.wikipedia.org/wiki/User:Evad37/rater/app.js
 
 Evad37 has [given permission](https://en.wikipedia.org/w/index.php?title=User_talk:Evad37&diff=prev&oldid=1311616009) for English Wikipedia interface administrators to edit their userspace pages for the purpose of deploying updates to Rater.
