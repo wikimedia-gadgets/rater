@@ -1,3 +1,11 @@
+// Disable error logging for this script
+// There is a high volume of errors with the following error:
+// Error: inheritClass: Origin is not a function (actually undefined)
+// This can be removed when that has been addressed.
+ mw.loader.using('mediawiki.storage').then(function () {
+   mw.storage.session.set( 'client-error-opt-out', '1' );
+ });
+
 /*
  * Rater: dialog interface to add, remove, or modify WikiProject banners
  * Author: Evad37
