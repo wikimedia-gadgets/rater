@@ -15,10 +15,11 @@ See [https://en.wikipedia.org/wiki/User:Evad37/rater](https://en.wikipedia.org/w
 Improvements to this workflow are planned in [issue #29](https://github.com/wikimedia-gadgets/rater/issues/29)
 
 ## How to deploy to enwiki
+* be Evad37 or an enwiki interface administrator
 * `npm run build`
 * copy paste the contents of dist/rater.min.js to https://en.wikipedia.org/wiki/User:Evad37/rater/app.js
 
-Evad37 has [given permission](https://en.wikipedia.org/w/index.php?title=User_talk:Evad37&diff=prev&oldid=1311616009) for English Wikipedia interface administrators to edit their userspace pages for the purpose of deploying updates to Rater.
+Evad37 has [given permission](https://en.wikipedia.org/w/index.php?title=User_talk:Evad37&diff=prev&oldid=1311616009) for English Wikipedia interface administrators to edit Evad37's userspace pages for the purpose of deploying updates to Rater.
 
 Improvements to this workflow are planned in [issue #30](https://github.com/wikimedia-gadgets/rater/issues/30)
 
