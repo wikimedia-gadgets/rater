@@ -22,7 +22,7 @@ import windowManager from "./windowManager";
 		// Open the window
 		windowManager.openWindow("main", data)
 			.closed.then( result => {
-				// Disable/remove the css styles, so as to not interfere with other scripts/content/OOUI windows
+				// Disable/remove the css styles, so as to not interfere with other scripts/content
 				if (stylesheet) { stylesheet.disabled = true; }
 				document.getElementsByTagName("body")[0].classList.remove("rater-mainWindow-open");
 				// Restart if needed
@@ -53,7 +53,7 @@ import windowManager from "./windowManager";
 	};
 
 	const showSetupError = (code, jqxhr) => OO.ui.alert(
-		makeErrorMsg(code, jqxhr),	{
+		makeErrorMsg(code, jqxhr), {
 			title: "Rater failed to open"
 		}
 	);

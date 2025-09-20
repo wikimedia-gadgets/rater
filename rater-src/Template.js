@@ -14,10 +14,12 @@ import * as cache from "./cache";
 	{
 		name: {String|Number} parameter name, or position for unnamed parameters,
 		value: {String} Wikitext passed to the parameter (whitespace trimmed),
-		wikitext: {String} Full wikitext (including leading pipe, parameter name/equals sign (if applicable), value, and any whitespace)
+		wikitext: {String} Full wikitext (including leading pipe, parameter name/equals sign
+			(if applicable), value, and any whitespace)
 	}
  * @constructor
- * @param {String} wikitext Wikitext of a template transclusion, starting with '{{' and ending with '}}'.
+ * @param {String} wikitext Wikitext of a template transclusion, starting with '{{' and
+ * ending with '}}'.
  */
 var Template = function(wikitext) {
 	this.wikitext = wikitext;
@@ -87,8 +89,8 @@ Template.prototype.getTitle = function() {
  *    
  * 
  * @param {String} wikitext
- * @param {Boolean} recursive Set to `true` to also parse templates that occur within other templates,
- *  rather than just top-level templates. 
+ * @param {Boolean} recursive Set to `true` to also parse templates within other templates,
+ * rather than just top-level templates. 
  * @return {Template[]} templates
 */
 var parseTemplates = function(wikitext, recursive) { /* eslint-disable no-control-regex */
@@ -134,7 +136,7 @@ var parseTemplates = function(wikitext, recursive) { /* eslint-disable no-contro
 			var indexOfOpenBraces = chunk.indexOf("{{");
 			
 			var isWithoutEquals = !chunk.includes("=");
-			var hasBracesBeforeEquals = chunk.includes("{{") && indexOfOpenBraces < indexOfEqualTo;	
+			var hasBracesBeforeEquals = chunk.includes("{{") && indexOfOpenBraces < indexOfEqualTo;
 			var isUnnamedParam = ( isWithoutEquals || hasBracesBeforeEquals );
 			
 			var pName, pNum, pVal;
@@ -155,7 +157,6 @@ var parseTemplates = function(wikitext, recursive) { /* eslint-disable no-contro
 		
 		result.push(template);
 	};
-
 	
 	var n = wikitext.length;
 	
@@ -271,7 +272,7 @@ Template.prototype.getDataForParam = function(key, paraName) {
 		return null;
 	}
 	// If alias, switch from alias to preferred parameter name
-	var para = this.paramAliases[paraName] || paraName;	
+	var para = this.paramAliases[paraName] || paraName;
 	if ( !this.paramData[para] ) {
 		return;
 	}
@@ -337,7 +338,8 @@ Template.prototype.setParamDataAndSuggestions = function() {
 		// Figure out page id (beacuse action=templatedata doesn't have an indexpageids option)
 			var id = result && $.map(result.pages, function( _value, key ) { return key; });
 		
-			if ( !result || !result.pages[id] || result.pages[id].notemplatedata || !result.pages[id].params ) {
+			if ( !result || !result.pages[id] || result.pages[id].notemplatedata ||
+				!result.pages[id].params ) {
 			// No TemplateData, so use defaults (guesses)
 				self.notemplatedata = true;
 				self.templatedataApiError = !result;
@@ -401,7 +403,7 @@ Template.prototype.setParamDataAndSuggestions = function() {
 				paramData: self.paramData,
 				parameterSuggestions: self.parameterSuggestions,
 				paramAliases: self.paramAliases
-			},	1
+			}, 1
 			);
 			return true;
 		})
@@ -410,7 +412,7 @@ Template.prototype.setParamDataAndSuggestions = function() {
 			paramDataSet.reject
 		);
 	
-	return paramDataSet;	
+	return paramDataSet;
 };
 
 var makeListAs = function(subjectTitle) {
@@ -489,8 +491,10 @@ Template.prototype.setClassesAndImportances = function() {
 
 	var mainText = this.getTitle().getMainText();
 
-	// Some projects have hardcoded values, to avoid standard classes or to prevent API issues (timeout and/or node count exceeded)
-	const redirectTargetOrMainText = this.redirectTarget ? this.redirectTarget.getMainText() : mainText;
+	// Some projects have hardcoded values, to avoid standard classes or to prevent API issues
+	// (timeout and/or node count exceeded)
+	const redirectTargetOrMainText = this.redirectTarget ?
+		this.redirectTarget.getMainText() : mainText;
 	if ( config.customBanners[redirectTargetOrMainText] ) {
 		this.classes = config.customBanners[redirectTargetOrMainText].classes;
 		this.importances = config.customBanners[redirectTargetOrMainText].importances;
@@ -515,7 +519,7 @@ Template.prototype.setClassesAndImportances = function() {
 		} // else: Use the cache data for now, but also fetch new data from API
 	}
 
-	var wikitextToParse = "";	
+	var wikitextToParse = "";
 	config.bannerDefaults.extendedClasses.forEach(function(classname, index) {
 		wikitextToParse += "{{" + mainText + "|class=" + classname + "|importance=" +
 		(config.bannerDefaults.extendedImportances[index] || "") + "}}/n";

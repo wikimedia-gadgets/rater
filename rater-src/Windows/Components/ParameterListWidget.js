@@ -56,11 +56,11 @@ var ParameterListWidget = function ParameterListWidget( config ) {
 	/* --- Events --- */
 
 	// Handle delete events from ParameterWidgets
-	this.aggregate( { delete: "parameterDelete"	} );
+	this.aggregate( { delete: "parameterDelete" } );
 	this.connect( this, { parameterDelete: "onParameterDelete" } );
     
 	// Handle change events from ParameterWidgets
-	this.aggregate( { change: "parameterChange"	} );
+	this.aggregate( { change: "parameterChange" } );
 	this.connect( this, { parameterChange: "onParameterChange" } );
 
 	// Handle updatedSize events from ParameterWidgets
@@ -102,7 +102,7 @@ ParameterListWidget.prototype.addItems = function ( items, index ) {
 	this.onUpdatedSize();
 
 	return this;
-};	
+};
 
 ParameterListWidget.prototype.onParameterDelete = function(parameter) {
 	this.removeItems([parameter]);

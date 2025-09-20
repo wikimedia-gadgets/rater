@@ -81,7 +81,8 @@ MainWindow.static.actions = [
 	}
 ];
 
-// Customize the initialize() function: This is where to add content to the dialog body and set up event handlers.
+// Customize the initialize() function: This is where to add content to the dialog body
+// and set up event handlers.
 MainWindow.prototype.initialize = function () {
 	// Call the parent method.
 	MainWindow.super.prototype.initialize.call( this );
@@ -146,10 +147,10 @@ MainWindow.prototype.initialize = function () {
 	this.parsedContentContainer = new OO.ui.FieldsetLayout( {
 		label: "Preview"
 	} );
-	this.parsedContentWidget = new OO.ui.LabelWidget( {label: "",	$element:$("<div>")	});
+	this.parsedContentWidget = new OO.ui.LabelWidget( {label: "", $element:$("<div>") } );
 	this.parsedContentContainer.addItems([
 		new OO.ui.FieldLayout(
-			this.parsedContentWidget,			
+			this.parsedContentWidget,
 			{ align: "top" }
 		)
 	]);
@@ -407,7 +408,6 @@ MainWindow.prototype.getActionProcess = function ( action ) {
 			this.close({restart: true});
 		});
 
-
 	} else if ( action === "closePrefs" ) {
 		this.actions.setMode("edit");
 		this.contentArea.setItem( this.editLayout );
@@ -571,7 +571,7 @@ MainWindow.prototype.onSearchSelect = function(data) {
 		return;
 	}
 	var existingBanner = this.bannerList.items.find(banner => {
-		return banner.mainText === name ||	banner.redirectTargetMainText === name;
+		return banner.mainText === name || banner.redirectTargetMainText === name;
 	});
 
 	// Abort and show alert if banner already exists
@@ -580,7 +580,8 @@ MainWindow.prototype.onSearchSelect = function(data) {
 		return OO.ui.alert("There is already a {{" + name + "}} banner").then(this.searchBox.focus());
 	}
 
-	// Confirmation required for banners missing WikiProject from name, and for uncreated disambiguation talk pages
+	// Confirmation required for banners missing WikiProject from name,
+	// and for uncreated disambiguation talk pages
 	var confirmText;
 	if (!/^[Ww](?:P|iki[Pp]roject)/.test(name)) {
 		confirmText = new OO.ui.HtmlSnippet(
@@ -713,7 +714,9 @@ MainWindow.prototype.makeEditSummary = function() {
 
 	// removed banners:
 	this.existingBannerNames.forEach(name => {
-		const banner = this.bannerList.items.find( banner => banner.name === name || banner.bypassedName === name );
+		const banner = this.bannerList.items.find( banner =>
+			banner.name === name || banner.bypassedName === name
+		);
 		if (!banner) {
 			removedBanners.push("−" + shortName(name));
 		}
@@ -725,11 +728,13 @@ MainWindow.prototype.makeEditSummary = function() {
 			// Not changed
 			return;
 		}
-		let newClass = banner.hasClassRatings &&  (isNew || banner.classChanged) && banner.classDropdown.getValue();
+		let newClass = banner.hasClassRatings && (isNew || banner.classChanged) &&
+			banner.classDropdown.getValue();
 		if (newClass) { someClassesChanged = true; }
 		if (overallClass) { newClass = null; }
 
-		let newImportance = banner.hasImportanceRatings && (isNew || banner.importanceChanged) && banner.importanceDropdown.getValue();
+		let newImportance = banner.hasImportanceRatings && (isNew || banner.importanceChanged) &&
+			banner.importanceDropdown.getValue();
 		if (newImportance) { someImportancesChanged = true; }
 		if (overallImportance) { newImportance = null; }
 
@@ -745,7 +750,8 @@ MainWindow.prototype.makeEditSummary = function() {
 		}
 	});
 	// overall rating
-	let overallRating = (someClassesChanged && overallClass && someImportancesChanged && overallImportance)
+	let overallRating = (someClassesChanged && overallClass &&
+		someImportancesChanged && overallImportance)
 		? overallClass + "/" + overallImportance
 		: (someClassesChanged && overallClass) || (someImportancesChanged && overallImportance) || "";
 	if (overallRating) { overallRating = " (" + overallRating + ")"; }
