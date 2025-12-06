@@ -12,6 +12,8 @@ See [https://en.wikipedia.org/wiki/User:Evad37/rater](https://en.wikipedia.org/w
    * Change line 38 from en.wikipedia.org to test.wikipedia.org
 * Add `importScript('User:[YOUR_USERNAME]/rater.js');` to https://test.wikipedia.org/wiki/[YOUR_USERNAME]/common.js
 
+Testwiki has the following 3 WikiProjects that can be chosen by Rater: Africa, Belgium, China. To add more, a testwiki administrator needs to visit Special:Import, import the template files (e.g. Template:WikiProject Africa), then go modify the template to take the "portal" code out of it (throws a Lua error). Then it should show up in Category:WikiProject banners with quality assessment, which is where Rater gets its list of WikiProjects from.
+
 Improvements to this workflow are planned in [issue #29](https://github.com/wikimedia-gadgets/rater/issues/29)
 
 ## How to deploy to enwiki
