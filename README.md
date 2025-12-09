@@ -4,6 +4,10 @@ This is the source code for version 2 of the Wikipedia userscript [Rater](https:
 ## Installation instructions and user guide
 See [https://en.wikipedia.org/wiki/User:Evad37/rater](https://en.wikipedia.org/wiki/User:Evad37/rater).
 
+## Where Rater looks for data
+* To get a WikiProject to show up in Rater, make sure the WikiProject template shows up in [Category:WikiProject banners with quality assessment](https://en.wikipedia.org/wiki/Category:WikiProject_banners_with_quality_assessment).
+* To add a task force to a WikiProject, you need to [edit that template's template data](https://en.wikipedia.org/wiki/User:Evad37/rater#TemplateData_quick_tutorial).
+
 ## How to manually test a patch on testwiki
 * `npm run build`
 * Copy paste the contents of dist/rater.js to https://test.wikipedia.org/wiki/User:[YOUR_USERNAME]/rater/app.js
