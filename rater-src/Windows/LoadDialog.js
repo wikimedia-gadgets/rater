@@ -21,7 +21,8 @@ OO.inheritClass( LoadDialog, OO.ui.Dialog );
 LoadDialog.static.name = "loadDialog";
 LoadDialog.static.title = "Loading Rater...";
 
-// Customize the initialize() function: This is where to add content to the dialog body and set up event handlers.
+// Customize the initialize() function: This is where to add content to the dialog body
+// and set up event handlers.
 LoadDialog.prototype.initialize = function () {
 	// Call the parent method.
 	LoadDialog.super.prototype.initialize.call( this );
@@ -92,7 +93,8 @@ LoadDialog.prototype.onCloseButtonClick = function() {
 	this.close();
 };
 
-// Override the getBodyHeight() method to specify a custom height (or don't to use the automatically generated height).
+// Override the getBodyHeight() method to specify a custom height
+// (or don't to use the automatically generated height).
 LoadDialog.prototype.getBodyHeight = function () {
 	return this.content.$element.outerHeight( true );
 };

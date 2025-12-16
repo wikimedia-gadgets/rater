@@ -33,8 +33,9 @@ $.when(
 		return;
 	}
 	// Otherwise, load the rest of the script.
-	// Get the title using template substitution (so the same source file be used on both main and sandbox scripts)
-	var title = /* </nowiki> */ "{{subst:str crop|{{subst:FULLPAGENAMEE}}|3}}/app.js"; /* <nowiki> */
+	// Get the title using template substitution (same source file be used on both main and sandbox)
+	var title = /* </nowiki> */ "{{subst:str crop|{{subst:FULLPAGENAMEE}}|3}}/app.js";
+	/* <nowiki> */
 	mw.loader.load( "https://en.wikipedia.org/w/index.php?title="+title+"&action=raw&ctype=text/javascript" );
 });
 // </nowiki>

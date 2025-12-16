@@ -17,9 +17,9 @@ table.diff {
     table-layout: fixed; /* Ensures that colums are of equal width */
 }
 td.diff-addedline .diffchange, td.diff-deletedline .diffchange { border-radius: 0.33em; padding: 0.25em 0; }
-td.diff-addedline .diffchange {	background: #d8ecff; }
+td.diff-addedline .diffchange { background: #d8ecff; }
 td.diff-deletedline .diffchange { background: #feeec8; }
-table.diff td {	padding: 0.33em 0.66em; }
+table.diff td { padding: 0.33em 0.66em; }
 table.diff col.diff-marker { width: 2%; }
 table.diff col.diff-content { width: 48%; }
 table.diff td div {
@@ -39,7 +39,7 @@ html body.rater-mainWindow-open .oo-ui-windowManager-modal > .oo-ui-dialog.oo-ui
     position: static;
     padding: 0;
 }` +
-// Increase z-index, to be above skin menus etc; smooth transition for dragging (transform:translate)
+// Increase z-index, to be above skin menus etc; smooth transition for dragging
 `html body.rater-mainWindow-open .oo-ui-dialog.oo-ui-window-active > div {
     z-index: 110;
     transition: all 0.25s ease-out 0s, transform 0s !important

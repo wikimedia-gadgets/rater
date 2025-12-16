@@ -23,7 +23,34 @@
         ],
         "linebreak-style": [
             "error",
-            "windows"
+            "unix"
+        ],
+        "max-len": [
+            "warn",
+            {
+                "code": 100,
+                "tabWidth": 4,
+                "ignorePattern": "^[\\s]*(//|<!--) (es|style)lint-.+",
+                "ignoreUrls": true,
+                "ignoreComments": false,
+                "ignoreRegExpLiterals": true,
+                "ignoreStrings": true,
+                "ignoreTemplateLiterals": true
+            }
+        ],
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 1,
+                "maxBOF": 0,
+                "maxEOF": 0
+            }
+        ],
+        "no-tabs": [
+            "error",
+            {
+                "allowIndentationTabs": true
+            }
         ],
         "quotes": [
             "error",

@@ -62,12 +62,14 @@ BannerListWidget.prototype.onBannerRemove = function ( banner ) {
 
 BannerListWidget.prototype.syncShellTemplateWithBiographyBanner = function( biographyBanner ) {
 	biographyBanner = biographyBanner || this.items.find(
-		banner => banner.mainText === "WikiProject Biography" || banner.redirectTargetMainText === "WikiProject Biography"
+		banner => banner.mainText === "WikiProject Biography" ||
+			banner.redirectTargetMainText === "WikiProject Biography"
 	);
 	if (!biographyBanner) return;
 
 	const bannerShellTemplate = this.items.find(
-		banner => banner.mainText === config.shellTemplates[0] || banner.redirectTargetMainText === config.shellTemplates[0]
+		banner => banner.mainText === config.shellTemplates[0] ||
+			banner.redirectTargetMainText === config.shellTemplates[0]
 	);
 	if (!bannerShellTemplate) {
 		return;
@@ -89,13 +91,14 @@ BannerListWidget.prototype.syncShellTemplateWithBiographyBanner = function( biog
 		);
 		if (!biographyParam) return;
 
-		const paramSyncValue = paramToSync.normalise ? normaliseYesNo(biographyParam.value) : biographyParam.value;
+		const paramSyncValue = paramToSync.normalise ?
+			normaliseYesNo(biographyParam.value) : biographyParam.value;
 		biographyParam.delete();
 
 		if (!shellParam && paramSyncValue) {
 			const index = bannerShellTemplate.addParameterLayout.isVisible()
 				? -1 // Insert at the very end
-				: bannerShellTemplate.parameterList.items.length-1; // Insert prior to the "add parameter" button
+				: bannerShellTemplate.parameterList.items.length-1; // Insert prior to "add param"
 			bannerShellTemplate.parameterList.addItems([
 				new ParameterWidget( {
 					"name": paramToSync.name,
@@ -132,7 +135,6 @@ BannerListWidget.prototype.addShellTemplateIfNeeeded = function () {
 	return this;
 };
 
-
 BannerListWidget.prototype.addItems = function ( items, index ) {
 
 	if ( items.length === 0 ) {
@@ -157,7 +159,8 @@ BannerListWidget.prototype.addItems = function ( items, index ) {
 BannerListWidget.prototype.autofillClassRatings = function(config) {
 	config = config || {};
 	// Only autofill if set in preferences
-	if (!this.preferences.autofillClassFromOthers && !this.preferences.autofillClassFromOres && !config.forBannerShell) {
+	if (!this.preferences.autofillClassFromOthers && !this.preferences.autofillClassFromOres &&
+		!config.forBannerShell) {
 		return;
 	}
 	// Check what banners already have
@@ -178,9 +181,11 @@ BannerListWidget.prototype.autofillClassRatings = function(config) {
 	}
 	// Determine what to autofill with
 	let autoClass;
-	if (uniqueClassRatings.length === 1 && (this.preferences.autofillClassFromOthers || config.forBannerShell)) {
+	if (uniqueClassRatings.length === 1 &&
+		(this.preferences.autofillClassFromOthers || config.forBannerShell)) {
 		autoClass = uniqueClassRatings[0];
-	} else if (uniqueClassRatings.length === 0 && this.preferences.autofillClassFromOres && this.oresClass) {
+	} else if (uniqueClassRatings.length === 0 && this.preferences.autofillClassFromOres &&
+		this.oresClass) {
 		// Don't autofill above C-class
 		switch(this.oresClass) {
 		case "Stub": case "Start": case "C": case "List":
@@ -212,7 +217,8 @@ BannerListWidget.prototype.autofillImportanceRatings = function() {
 	if (!this.preferences.autofillImportance) {
 		return;
 	}
-	const isRegularArticle = this.pageInfo && this.pageInfo.isArticle && !this.pageInfo.redirect && !this.pageInfo.isDisambig;
+	const isRegularArticle = this.pageInfo && this.pageInfo.isArticle &&
+		!this.pageInfo.redirect && !this.pageInfo.isDisambig;
 	if (!isRegularArticle) {
 		return;
 	}
@@ -252,7 +258,7 @@ BannerListWidget.prototype.makeWikitext = function() {
 	var shellParam1 = new ParameterWidget({
 		name:"1",
 		value: "\n" + bannersWikitext + "\n" +
-			(shellTemplate.nonStandardTemplates	? shellTemplate.nonStandardTemplates + "\n" : "")
+			(shellTemplate.nonStandardTemplates ? shellTemplate.nonStandardTemplates + "\n" : "")
 	});
 	shellTemplate.parameterList.addItems([ shellParam1 ]);
 	var shellWikitext = shellTemplate.makeWikitext();

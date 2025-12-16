@@ -36,11 +36,11 @@ var autoStart = function autoStart() {
 		// If talk page does not exist, can just autostart
 		if ( $("#ca-talk.new").length ) {
 			return setupRater();
-		}	
+		}
 
-		/* Check templates present on talk page. Fetches indirectly transcluded templates, so will find
-			Template:WPBannerMeta (and its subtemplates). But some banners such as MILHIST don't use that
-			meta template, so we also have to check for template titles containg 'WikiProject'
+		/* Check templates present on talk page. Fetches indirectly transcluded templates, so find
+			Template:WPBannerMeta (and its subtemplates). But some banners such as MILHIST don't use
+			that meta template, so we also check for template titles containing 'WikiProject'
 		*/
 		const talkTitle = mw.Title.newFromText(config.mw.wgPageName).getTalkPage();
 		return API.get({

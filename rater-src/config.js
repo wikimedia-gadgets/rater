@@ -103,7 +103,7 @@ var config = {
 				"Template",
 				"Disambig",
 				"Redirect",
-				"Book"			
+				"Book"
 			],
 			importances: []
 		},

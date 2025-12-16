@@ -19,18 +19,20 @@ function ParameterWidget( parameter, paramData, config ) {
 	this.isSuggested = this.paramData.suggested;
 
 	// Make a checkbox if only 1 or 2 allowed values
-	switch(this.allowedValues.length) {	/* eslint-disable no-fallthrough */
+	switch(this.allowedValues.length) { /* eslint-disable no-fallthrough */
 	case 1:
 		this.allowedValues[1] = null;
 		/* fall-through */
 	case 2:
 		var isFirstAllowedVal = (
 			this.allowedValues.indexOf( parameter.value ) === 0 ||
-				this.allowedValues.map(normaliseYesNo).indexOf( normaliseYesNo(parameter.value) ) === 0
+			this.allowedValues.map(normaliseYesNo).indexOf( normaliseYesNo(parameter.value) ) === 0
 		);
 		var isSecondAllowedVal = (
 			this.allowedValues.indexOf( parameter.value || null ) === 1 ||
-				this.allowedValues.map(normaliseYesNo).indexOf( parameter.value ? normaliseYesNo(parameter.value) : null) === 1
+			this.allowedValues.map(normaliseYesNo).indexOf(
+				parameter.value ? normaliseYesNo(parameter.value) : null
+			) === 1
 		);
 		var isIndeterminate = !isFirstAllowedVal && !isSecondAllowedVal;
 		this.checkbox = new OO.ui.CheckboxInputWidget( {
@@ -137,7 +139,7 @@ function ParameterWidget( parameter, paramData, config ) {
 			(this.value
 				? " = " + this.value
 				: " "
-			),	
+			),
 		$element: $("<label style='margin: 0;'>")
 	});
 	this.autofilledIcon = new OO.ui.IconWidget( {

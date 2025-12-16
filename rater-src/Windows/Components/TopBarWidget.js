@@ -79,7 +79,8 @@ function TopBarWidget( config ) {
 		.append(this.searchBox.$element, this.addBannerButton.$element);
 
 	// Set all classes/importances
-	// in the style of a popup button with a menu (is actually a dropdown with a hidden label, because that makes the coding easier.)
+	// in the style of a popup button with a menu (is actually a dropdown with a hidden label,
+	// because that makes the coding easier.)
 	this.setAllDropDown = new OO.ui.DropdownWidget( {
 		icon: "tag",
 		label: "Set all...",
@@ -103,12 +104,15 @@ function TopBarWidget( config ) {
 				} ),
 				new OO.ui.MenuOptionWidget( {
 					data: {importance: null},
-					label: new OO.ui.HtmlSnippet("<span style=\"color:#777\">(no importance)</span>")
+					label: new OO.ui.HtmlSnippet(
+						"<span style=\"color:#777\">(no importance)</span>"
+					)
 				} ),
-				...appConfig.bannerDefaults.importances.map(importance => new OO.ui.MenuOptionWidget( {
-					data: {importance: importance},
-					label: importance
-				} )
+				...appConfig.bannerDefaults.importances.map(importance =>
+					new OO.ui.MenuOptionWidget( {
+						data: {importance: importance},
+						label: importance
+					} )
 				)
 			]
 		},

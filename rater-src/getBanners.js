@@ -140,15 +140,20 @@ var getBannersFromCache = function() {
 
 /**
  * Gets banner names, grouped by type (withRatings, withoutRatings, wrappers, notWPBM)
- * @returns {Promise<Object>} Object of string arrays keyed by type (withRatings, withoutRatings, wrappers, notWPBM)
+ * @returns {Promise<Object>} Object of string arrays keyed by type
+ * (withRatings, withoutRatings, wrappers, notWPBM)
  */
 var getBannerNames = () => getBannersFromCache()
 	.then( banners => {
 		// Ensure all keys exist
-		if (!banners.withRatings || !banners.withoutRatings || !banners.wrappers || !banners.notWPBM || !banners.inactive || !banners.wir) {
+		if (!banners.withRatings || !banners.withoutRatings || !banners.wrappers ||
+			!banners.notWPBM || !banners.inactive || !banners.wir) {
 			getListOfBannersFromApi().then(cacheBanners);
 			return $.extend(
-				{ withRatings: [], withoutRatings: [], wrappers: [], notWPBM: [], inactive: [], wir: [] },
+				{
+					withRatings: [], withoutRatings: [], wrappers: [],
+					notWPBM: [], inactive: [], wir: []
+				},
 				banners
 			);
 		}

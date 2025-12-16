@@ -35,19 +35,21 @@ var setupRater = function(clickEvent) {
 		titles: talkPage.getPrefixedText(),
 		indexpageids: 1
 	} ).then(function (result) {
-		var id = result.query.pageids;		
+		var id = result.query.pageids;
 		var wikitext = ( id < 0 ) ? "" : result.query.pages[id].revisions[0]["*"];
 		return wikitext;
 	});
 
 	// Parse talk page for banners (task 3)
-	var parseTalkPromise = loadTalkPromise.then(wikitext => parseTemplates(wikitext, true)) // Get all templates
-		.then(templates => templates.filter(template => template.getTitle() !== null)) // Filter out invalid templates (e.g. parser functions)
+	var parseTalkPromise = loadTalkPromise
+		.then(wikitext => parseTemplates(wikitext, true)) // Get all templates
+		.then(templates => templates.filter(template =>
+			template.getTitle() !== null)) // Filter invalid templates
 		.then(templates => getWithRedirectTo(templates)) // Check for redirects
 		.then(templates => {
 			return bannersPromise.then((allBanners) => { // Get list of all banner templates
 				return filterAndMap(
-					templates, 			
+					templates,
 					// Filter out non-banners
 					template => { 
 						if (template.isShellTemplate()) { return true; }
@@ -88,7 +90,8 @@ var setupRater = function(clickEvent) {
 	var templateDetailsPromise = parseTalkPromise.then(function(templates) {
 		// Wait for all promises to resolve
 		return $.when.apply(null, [
-			...templates.map(template => template.isShellTemplate() ? null : template.setClassesAndImportances()),
+			...templates.map(template => template.isShellTemplate() ? null :
+				template.setClassesAndImportances()),
 			...templates.map(template => template.setParamDataAndSuggestions())
 		]).then(() => {
 			// Add missing required/suggested values
@@ -130,12 +133,14 @@ var setupRater = function(clickEvent) {
 			isGA: hasCategory("Good articles"),
 			isFA: hasCategory("Featured articles"),
 			isFL: hasCategory("Featured lists"),
-			isList: !hasCategory("Featured lists") && /^Lists? of/.test(subjectPage.getPrefixedText())
+			isList: !hasCategory("Featured lists") &&
+				/^Lists? of/.test(subjectPage.getPrefixedText())
 		};
 	}).catch(() => null); // Failure ignored
 
-	// Retrieve rating from ORES (task 6, only needed for articles) - but don't error out if request fails
-	var shouldGetOres = ( subjectIsArticle ); // TODO: Don't need to get ORES for redirects or disambigs
+	// Retrieve rating from ORES (task 6, only needed for articles)
+	// - but don't error out if request fails
+	var shouldGetOres = ( subjectIsArticle ); // TODO: Don't need to get ORES for redirects
 	if ( shouldGetOres ) {
 		var latestRevIdPromise = !currentPage.isTalkPage()
 			? $.Deferred().resolve(config.mw.wgRevisionId)
@@ -203,7 +208,6 @@ var setupRater = function(clickEvent) {
 
 	loadDialogWin.opened.then(isOpenedPromise.resolve);
 
-
 	$.when(
 		prefsPromise,
 		loadTalkPromise,
@@ -225,7 +229,8 @@ var setupRater = function(clickEvent) {
 			if (subjectPageCheck) {
 				result = { ...result, ...subjectPageCheck };
 			}
-			if (oresPredicition && subjectPageCheck && !subjectPageCheck.isGA && !subjectPageCheck.isFA && !subjectPageCheck.isFL) {
+			if (oresPredicition && subjectPageCheck && !subjectPageCheck.isGA &&
+				!subjectPageCheck.isFA && !subjectPageCheck.isFL) {
 				result.ores = oresPredicition;
 			}
 			windowManager.closeWindow("loadDialog", result);
