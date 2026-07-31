@@ -30,27 +30,22 @@ table.diff td div {
     overflow: auto;
 }` +
 
-// Override OOUI window manager preventing background scrolling/interaction
+// Override OOUI window manager preventing background scrolling/interaction.
+// Scoped to Rater's own window manager (.rater-windowManager), so that other
+// OOUI dialogs (e.g. OO.ui.confirm in #mw-teleport-target) keep their default
+// fixed positioning and remain visible.
 `html body.rater-mainWindow-open {
 	position: unset;
 	overflow: unset;
 }
-html body.rater-mainWindow-open .oo-ui-windowManager-modal > .oo-ui-dialog.oo-ui-window-active {
+html body.rater-mainWindow-open .rater-windowManager > .oo-ui-dialog.oo-ui-window-active {
     position: static;
     padding: 0;
 }` +
 // Increase z-index, to be above skin menus etc; smooth transition for dragging (transform:translate)
-`html body.rater-mainWindow-open .oo-ui-dialog.oo-ui-window-active > div {
+`html body.rater-mainWindow-open .rater-windowManager > .oo-ui-dialog.oo-ui-window-active > div {
     z-index: 110;
     transition: all 0.25s ease-out 0s, transform 0s !important
-}
-` + 
-// Ensure close dialog is visible
-`html body.rater-mainWindow-open #mw-teleport-target {
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right:0;
 }
 `;
 

@@ -42,6 +42,9 @@ Improvements to this workflow are planned in [issue #30](https://github.com/wiki
    - This allows the bundled source code size to be smaller, and easier to work with. The scripts can be loaded with `mw.loader.getScript`, which returns a promise that resolves when the script is loaded.
    - These files must have licencing which, to be compatible with English Wikipedia (CC-BY-SA-3.0/GFDL), is permissive with regards to distribution, modification, and sublicencing. E.g. Apache, BSD, MIT licences are okay; GNU licences are not okay. See [comparison table](https://en.wikipedia.org/wiki/Comparison_of_free_and_open-source_software_licenses).
 
+[![Architecture diagram](architecture_main.svg)](architecture_main.svg)
+[![OOUI widgets diagram](ooui.svg)](ooui.svg)
+
 ### Tooling
 - **eslint** for ES6 linting
 - **jshint** for ES5 linting ([ESLint doesn't support override for ecmaVersion](https://github.com/sindresorhus/eslint-config-xo/issues/16#issuecomment-190302577))
