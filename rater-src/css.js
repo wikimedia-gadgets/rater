@@ -43,8 +43,10 @@ html body.rater-mainWindow-open .rater-windowManager > .oo-ui-dialog.oo-ui-windo
     padding: 0;
 }` +
 // Increase z-index, to be above skin menus etc; smooth transition for dragging (transform:translate)
+// 400 keeps Rater above Timeless sidebar dropdowns (.sidebar-inner, 350) / menus-cover (300) /
+// fixed header (200), but below #mw-teleport-target (450) so OO.ui.confirm dialogs stay on top.
 `html body.rater-mainWindow-open .rater-windowManager > .oo-ui-dialog.oo-ui-window-active > div {
-    z-index: 110;
+    z-index: 400;
     transition: all 0.25s ease-out 0s, transform 0s !important
 }
 `;
