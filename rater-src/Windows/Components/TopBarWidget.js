@@ -1,4 +1,5 @@
 import appConfig from "../../config";
+import i18n from "../../i18n";
 import SuggestionLookupTextInputWidget from "./SuggestionLookupTextInputWidget";
 import {getBannerNames} from "../../getBanners";
 // <nowiki>
@@ -19,7 +20,7 @@ function TopBarWidget( config ) {
     
 	// Search box
 	this.searchBox = new SuggestionLookupTextInputWidget( {
-		placeholder: "Add a WikiProject...",
+		placeholder: i18n.t("topbar-add-wikiproject"),
 		$element: $("<div style='display:inline-block; margin:0 -1px; width:calc(100% - 55px);'>"),
 		$overlay: this.$overlay,
 	} );
@@ -71,7 +72,7 @@ function TopBarWidget( config ) {
 	// Add button
 	this.addBannerButton = new OO.ui.ButtonWidget( {
 		icon: "add",
-		title: "Add",
+		title: i18n.t("button-add"),
 		flags: "progressive",
 		$element: $("<span style='float:right;margin: 0;transform: translateX(-12px);'>"),
 	} );
@@ -82,16 +83,16 @@ function TopBarWidget( config ) {
 	// in the style of a popup button with a menu (is actually a dropdown with a hidden label, because that makes the coding easier.)
 	this.setAllDropDown = new OO.ui.DropdownWidget( {
 		icon: "tag",
-		label: "Set all...",
+		label: i18n.t("topbar-set-all"),
 		invisibleLabel: true,
 		menu: {
 			items: [
 				new OO.ui.MenuSectionOptionWidget( {
-					label: "Classes"
+					label: i18n.t("topbar-classes")
 				} ),
 				new OO.ui.MenuOptionWidget( {
 					data: {class: null},
-					label: new OO.ui.HtmlSnippet("<span style=\"color:#777\">(no class)</span>")
+					label: new OO.ui.HtmlSnippet("<span style=\"color:#777\">(" + i18n.t("topbar-no-class") + ")</span>")
 				} ),
 				...appConfig.bannerDefaults.classes.map(classname => new OO.ui.MenuOptionWidget( {
 					data: {class: classname},
@@ -99,11 +100,11 @@ function TopBarWidget( config ) {
 				} )
 				),
 				new OO.ui.MenuSectionOptionWidget( {
-					label: "Importances"
+					label: i18n.t("topbar-importances")
 				} ),
 				new OO.ui.MenuOptionWidget( {
 					data: {importance: null},
-					label: new OO.ui.HtmlSnippet("<span style=\"color:#777\">(no importance)</span>")
+					label: new OO.ui.HtmlSnippet("<span style=\"color:#777\">(" + i18n.t("topbar-no-importance") + ")</span>")
 				} ),
 				...appConfig.bannerDefaults.importances.map(importance => new OO.ui.MenuOptionWidget( {
 					data: {importance: importance},
@@ -112,21 +113,21 @@ function TopBarWidget( config ) {
 				)
 			]
 		},
-		$element: $("<span style=\"width:auto;display:inline-block;float:left;margin:0\" title='Set all...'>"),
+		$element: $("<span style=\"width:auto;display:inline-block;float:left;margin:0\" title='" + i18n.t("topbar-set-all") + "'>"),
 		$overlay: this.$overlay,
 	} );
 
 	// Remove all banners button
 	this.removeAllButton = new OO.ui.ButtonWidget( {
 		icon: "trash",
-		title: "Remove all",
+		title: i18n.t("button-remove-all"),
 		flags: "destructive"
 	} );
 
 	// Clear all parameters button
 	this.clearAllButton = new OO.ui.ButtonWidget( {
 		icon: "cancel",
-		title: "Clear all",
+		title: i18n.t("button-clear-all"),
 		flags: "destructive"
 	} );
 

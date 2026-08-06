@@ -1,4 +1,5 @@
 import { makeErrorMsg } from "../api";
+import i18n from "../i18n";
 // <nowiki>
 
 /* var incrementProgressByInterval = function() {
@@ -19,7 +20,7 @@ var LoadDialog = function LoadDialog( config ) {
 OO.inheritClass( LoadDialog, OO.ui.Dialog ); 
 
 LoadDialog.static.name = "loadDialog";
-LoadDialog.static.title = "Loading Rater...";
+LoadDialog.static.title = "" + i18n.t("loading-title");
 
 // Customize the initialize() function: This is where to add content to the dialog body and set up event handlers.
 LoadDialog.prototype.initialize = function () {
@@ -36,36 +37,36 @@ LoadDialog.prototype.initialize = function () {
 	} );
 	this.setuptasks = [
 		new OO.ui.LabelWidget( {
-			label: "Loading your Rater preferences...",
+			label: i18n.t("loading-prefs"),
 			$element: $("<p style=\"display:block\">")
 		}),
 		new OO.ui.LabelWidget( {
-			label: "Loading list of project banners...",
+			label: i18n.t("loading-banners"),
 			$element: $("<p style=\"display:block\">")
 		}),
 		new OO.ui.LabelWidget( {
-			label: "Loading talkpage wikitext...",
+			label: i18n.t("loading-talk"),
 			$element: $("<p style=\"display:block\">")
 		}),
 		new OO.ui.LabelWidget( {
-			label: "Parsing talkpage templates...",
+			label: i18n.t("loading-parse"),
 			$element: $("<p style=\"display:block\">")
 		}),
 		new OO.ui.LabelWidget( {
-			label: "Getting templates' parameter data...",
+			label: i18n.t("loading-params"),
 			$element: $("<p style=\"display:block\">")
 		}),
 		new OO.ui.LabelWidget( {
-			label: "Checking subject page...",
+			label: i18n.t("loading-subject"),
 			$element: $("<p style=\"display:block\">")
 		}),
 		new OO.ui.LabelWidget( {
-			label: "Retrieving quality prediction...",
+			label: i18n.t("loading-ores"),
 			$element: $("<p style=\"display:block\">")
 		}).toggle(),
 	];
 	this.closeButton = new OO.ui.ButtonWidget( {
-		label: "Close"
+		label: i18n.t("button-close")
 	}).toggle();
 	this.setupPromises = [];
 
@@ -73,7 +74,7 @@ LoadDialog.prototype.initialize = function () {
 	this.content.$element.append(
 		this.progressBar.$element,
 		(new OO.ui.LabelWidget( {
-			label: "Initialising:",
+			label: i18n.t("loading-init"),
 			$element: $("<strong style=\"display:block\">")
 		})).$element,
 		...this.setuptasks.map(widget => widget.$element),

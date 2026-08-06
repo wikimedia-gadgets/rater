@@ -5,6 +5,8 @@
  * @cfg {Number} displayLimit The most to show at once. If the number of items
  *  is more than this, then only the first (displayLimit - 1) items are shown.
  */
+import i18n from "../../i18n";
+
 var ParameterListWidget = function ParameterListWidget( config ) {
 	config = config || {};
 
@@ -46,12 +48,17 @@ var ParameterListWidget = function ParameterListWidget( config ) {
 
 	// Add the button that allows user to add more parameters
 	this.addParametersButton = new OO.ui.ButtonWidget({
-		label: "Add parameter",
+		label: i18n.t("button-add-parameter"),
 		icon: "add",
 		framed: false,
 		$element: $("<span style='margin-bottom:0'>")
 	});
 	this.addItems([this.addParametersButton]);
+
+	// Refresh label after i18n loads
+	i18n.load().then(function(){
+		this.addParametersButton.setLabel(i18n.t("button-add-parameter"));
+	}.bind(this));
 
 	/* --- Events --- */
 
